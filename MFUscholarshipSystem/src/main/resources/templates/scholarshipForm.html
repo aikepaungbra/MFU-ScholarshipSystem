@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scholarship Form</title>
+</head>
+<body>
+
+    <h1>Scholarship Form</h1>
+
+    <form th:action="@{/scholarship-form/submit}" method="post" th:object="${studentBasicInfoDTO}">
+
+        <!-- Student Basic Info -->
+        <h3>Student Information</h3>
+        <label for="student_name">Student Name:</label>
+        <input type="text" id="student_name" th:field="*{student_name}" required><br><br>
+
+        <label for="student_dateOfBirth">Date of Birth:</label>
+        <input type="date" id="student_dateOfBirth" th:field="*{student_dateOfBirth}" required><br><br>
+
+        <label for="student_age">Age:</label>
+        <input type="number" id="student_age" th:field="*{student_age}" required><br><br>
+
+        <label for="student_year">Year:</label>
+        <input type="text" id="student_year" th:field="*{student_year}" required><br><br>
+
+        <label for="student_major">Major:</label>
+        <input type="text" id="student_major" th:field="*{student_major}" required><br><br>
+
+        <label for="student_gpaX">GPA:</label>
+        <input type="number" step="0.01" id="student_gpaX" th:field="*{student_gpaX}" required><br><br>
+
+        <label for="student_phoneNumber">Phone Number:</label>
+        <input type="text" id="student_phoneNumber" th:field="*{student_phoneNumber}" required><br><br>
+
+        <label for="student_email">Email:</label>
+        <input type="email" id="student_email" th:field="*{student_email}" required><br><br>
+
+        <!-- Last Info Section -->
+        <h3>Additional Information</h3>
+
+        <label for="advisorRecommendationLetter">Advisor Recommendation Letter:</label>
+        <textarea id="advisorRecommendationLetter" th:field="*{lastInfoDto.advisorRecommendationLetter}" required></textarea><br><br>
+
+        <label for="familyIncomeCertification">Family Income Certification:</label>
+        <textarea id="familyIncomeCertification" th:field="*{lastInfoDto.familyIncomeCertification}" required></textarea><br><br>
+
+        <label for="familyStatusCertification">Family Status Certification:</label>
+        <textarea id="familyStatusCertification" th:field="*{lastInfoDto.familyStatusCertification}" required></textarea><br><br>
+
+        <label for="nonParentalGuardianshipCertification">Non-Parental Guardianship Certification:</label>
+        <textarea id="nonParentalGuardianshipCertification" th:field="*{lastInfoDto.nonParentalGuardianshipCertification}"></textarea><br><br>
+
+        <label for="signature">Signature:</label>
+        <input type="text" id="signature" th:field="*{lastInfoDto.signature}" required><br><br>
+
+        <label for="scholarship_date">Scholarship Date:</label>
+        <input type="date" id="scholarship_date" th:field="*{lastInfoDto.scholarship_date}" required><br><br>
+
+        <label for="totalFamilyIncome">Total Family Income:</label>
+        <input type="number" id="totalFamilyIncome" th:field="*{lastInfoDto.totalFamilyIncome}" required><br><br>
+
+        <label for="totalFamilyExpensive">Total Family Expenses:</label>
+        <input type="number" id="totalFamilyExpensive" th:field="*{lastInfoDto.totalFamilyExpensive}" required><br><br>
+
+        <label for="totalMontylyDebt">Total Monthly Debt:</label>
+        <input type="number" id="totalMontylyDebt" th:field="*{lastInfoDto.totalMontylyDebt}" required><br><br>
+
+        <!-- Scholarship History Section -->
+        <h3>Scholarship History</h3>
+        <label for="scholarBefore">Have you received a scholarship before?</label>
+        <input type="checkbox" id="scholarBefore" th:field="*{scholarshipHistoryDto.scholarBefore}"><br><br>
+
+        <label for="scholarName">Scholarship Name:</label>
+        <input type="text" id="scholarName" th:field="*{scholarshipHistoryDto.scholarName}"><br><br>
+
+        <label for="recieveYear">Year of Scholarship:</label>
+        <input type="number" id="recieveYear" th:field="*{scholarshipHistoryDto.recieveYear}"><br><br>
+
+        <label for="scholarAmount">Scholarship Amount:</label>
+        <input type="number" id="scholarAmount" th:field="*{scholarshipHistoryDto.scholarAmount}"><br><br>
+
+        <label for="loanYearStart">Loan Start Date:</label>
+        <input type="date" id="loanYearStart" th:field="*{scholarshipHistoryDto.loanYearStart}"><br><br>
+
+        <label for="loanYearEnd">Loan End Date:</label>
+        <input type="date" id="loanYearEnd" th:field="*{scholarshipHistoryDto.loanYearEnd}"><br><br>
+
+        <label for="loanAmount">Loan Amount:</label>
+        <input type="number" id="loanAmount" th:field="*{scholarshipHistoryDto.loanAmount}"><br><br>
+
+        <label for="howYouSpendEssay">How Did You Spend the Scholarship?</label>
+        <textarea id="howYouSpendEssay" th:field="*{scholarshipHistoryDto.howYouSpendEssay}" rows="4" cols="50"></textarea><br><br>
+
+        <!-- Sibling Information -->
+        <h3>Sibling Information</h3>
+
+        <div th:each="sibling, iterStat : ${siblingInfoDtos}">
+            <label for="sibling_order">Sibling Order:</label>
+           <input type="number" id="sibling_order" th:field="*{siblingInfoDtos[iterStat.index].sibling_order}" required>
+
+            <label for="sibling_Name">Sibling Name:</label>
+            <input type="text" id="sibling_Name" th:field="*{siblingInfoDtos[__${iterStat.index}__].sibling_Name}" required><br><br>
+
+            <label for="sibling_birthday">Sibling Birthday:</label>
+            <input type="date" id="sibling_birthday" th:field="*{siblingInfoDtos[__${iterStat.index}__].sibling_birthday}" required><br><br>
+
+            <label for="sibling_age">Sibling Age:</label>
+            <input type="number" id="sibling_age" th:field="*{siblingInfoDtos[__${iterStat.index}__].sibling_age}" required><br><br>
+
+            <label for="sibling_occupation">Sibling Occupation:</label>
+            <input type="text" id="sibling_occupation" th:field="*{siblingInfoDtos[__${iterStat.index}__].sibling_occupation}" required><br><br>
+
+            <label for="sibling_education">Sibling Education:</label>
+            <input type="text" id="sibling_education" th:field="*{siblingInfoDtos[__${iterStat.index}__].sibling_education}" required><br><br>
+
+            <label for="sibling_monthlyIncome">Sibling Monthly Income:</label>
+            <input type="number" id="sibling_monthlyIncome" th:field="*{siblingInfoDtos[__${iterStat.index}__].sibling_monthlyIncome}" required><br><br>
+        </div>
+
+        <button type="submit">Submit Scholarship Form</button>
+    </form>
+
+</body>
+</html>
