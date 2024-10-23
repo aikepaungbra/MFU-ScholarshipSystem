@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
@@ -25,12 +26,16 @@ public class LastInfo {
 	private String familyIncomeCertifiacation;
 	private String familyStatusCertification;
 	private String nonParentalGuardianshipCertification;
+	
 	private String signature;
 	private LocalDate scholarship_date;
 	
 	private int totalFamilyIncome;
     private int totalFamilyExpensive;
     private int totalMontylyDebt;
+    
+    @Lob
+    private String mfuScholarshipEssay;
 	
     
 //	private byte[] advisorRecommendationLetter;

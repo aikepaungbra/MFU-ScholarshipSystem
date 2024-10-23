@@ -38,5 +38,20 @@ public class StudentBasicInfo {
 	
 	@OneToMany(mappedBy = "basicInfo")
 	private List<ScholarshipHistory> scholarshipHistories;
+	
+	@OneToOne(mappedBy = "studentBasicInfo", cascade = CascadeType.ALL)
+	private FatherInfo fatherInfo;
+	
+	@OneToOne(mappedBy = "studentBasicInfo", cascade = CascadeType.ALL)
+	private MotherInfo motherInfo;
+	
+	@OneToOne(mappedBy = "studentBasicInfo", cascade = CascadeType.ALL)
+	private GurdianInfo gurdianInfo;
+	
+	@OneToOne(mappedBy = "studentBasicInfo", cascade = CascadeType.ALL)
+	private StudentAddress studentAddress;
+	
+	@OneToOne(mappedBy = "studentBasicInfo", cascade = CascadeType.ALL)
+	private FamilyStatus familyStatus;
 
 }
