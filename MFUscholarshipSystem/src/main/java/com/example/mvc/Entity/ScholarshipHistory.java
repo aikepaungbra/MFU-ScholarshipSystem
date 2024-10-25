@@ -16,7 +16,7 @@ import lombok.Data;
 
 
 @Data
-@Entity
+@Entity()
 public class ScholarshipHistory {
 	
 	@Id

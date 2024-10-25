@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.example.mvc.AdminEntity.ScholarApplicants;
 
-import jakarta.annotation.Generated;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,6 +30,8 @@ public class ScholarInfo {
     private String sponsor;
     private LocalDate scholar_start_date;
     private LocalDate scholar_end_date;
+    
+    private boolean publish;
     
     @ManyToOne
     @JoinColumn(name = "student_id", nullable = false)

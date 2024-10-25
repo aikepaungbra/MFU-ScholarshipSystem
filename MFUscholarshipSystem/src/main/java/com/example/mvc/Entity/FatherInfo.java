@@ -13,7 +13,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@Entity
+@Entity()
 @EqualsAndHashCode(callSuper = true)
 public class FatherInfo extends ParentDetails{
 	
