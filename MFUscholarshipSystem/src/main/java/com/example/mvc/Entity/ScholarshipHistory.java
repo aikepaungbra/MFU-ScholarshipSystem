@@ -27,12 +27,9 @@ public class ScholarshipHistory {
     private int recieveYear;
     private int scholarAmount;
 
-    private LocalDate loanYearStart;
-    private LocalDate loanYearEnd;
-    private int loanAmount;
+   
 
-    @Lob
-    private String howYouSpendEssay;
+    
     
     @ManyToOne
     @JoinColumn(name = "student_id", insertable = false, updatable = false)

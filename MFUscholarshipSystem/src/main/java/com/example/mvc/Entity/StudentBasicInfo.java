@@ -3,6 +3,8 @@ package com.example.mvc.Entity;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.example.mvc.AdminEntity.ScholarApplicants;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -30,11 +32,17 @@ public class StudentBasicInfo {
 	private String student_email;
 	private String student_advisorName;
 	
+	@OneToMany(mappedBy = "basicInfo", cascade = CascadeType.ALL)
+	private List<ScholarApplicants> scholarApplicants;
+	
     @OneToOne(mappedBy = "studentBasicInfo", cascade = CascadeType.ALL)
 	private LastInfo lastInfo;
 
 	@OneToMany(mappedBy = "basicInfo")
 	private List<SiblingInfo> siblings;
+	
+	@OneToMany(mappedBy = "basicInfo")
+	private List<LoanHistory> loanHistories;
 	
 	@OneToMany(mappedBy = "basicInfo")
 	private List<ScholarshipHistory> scholarshipHistories;

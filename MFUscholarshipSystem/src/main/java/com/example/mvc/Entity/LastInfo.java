@@ -36,6 +36,9 @@ public class LastInfo {
     
     @Lob
     private String mfuScholarshipEssay;
+    
+    @Lob
+    private String howYouSpendEssay;
 	
     
 //	private byte[] advisorRecommendationLetter;

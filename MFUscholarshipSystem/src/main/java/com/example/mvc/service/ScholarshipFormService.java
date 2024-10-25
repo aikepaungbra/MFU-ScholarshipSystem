@@ -73,10 +73,10 @@ public class ScholarshipFormService {
 	    scholarshipHistory.setScholarName(scholarshipHistoryDto.getScholarName());
 	    scholarshipHistory.setRecieveYear(scholarshipHistoryDto.getRecieveYear());
 	    scholarshipHistory.setScholarAmount(scholarshipHistoryDto.getScholarAmount());
-	    scholarshipHistory.setLoanYearStart(scholarshipHistoryDto.getLoanYearStart());
-	    scholarshipHistory.setLoanYearEnd(scholarshipHistoryDto.getLoanYearEnd());
-	    scholarshipHistory.setLoanAmount(scholarshipHistoryDto.getLoanAmount());
-	    scholarshipHistory.setHowYouSpendEssay(scholarshipHistoryDto.getHowYouSpendEssay());
+//	    scholarshipHistory.setLoanYearStart(scholarshipHistoryDto.getLoanYearStart());
+//	    scholarshipHistory.setLoanYearEnd(scholarshipHistoryDto.getLoanYearEnd());
+//	    scholarshipHistory.setLoanAmount(scholarshipHistoryDto.getLoanAmount());
+//	    scholarshipHistory.setHowYouSpendEssay(scholarshipHistoryDto.getHowYouSpendEssay());
 
 	    scholarshipHistoryRepository.save(scholarshipHistory);
 
