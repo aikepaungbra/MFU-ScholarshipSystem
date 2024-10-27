@@ -3,6 +3,7 @@ package com.example.mvc.Entity;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.example.mvc.AdminEntity.Admin;
 import com.example.mvc.AdminEntity.ScholarApplicants;
 
 import jakarta.persistence.CascadeType;
@@ -34,8 +35,12 @@ public class ScholarInfo {
     private boolean publish;
     
     @ManyToOne
-    @JoinColumn(name = "student_id", nullable = false)
-    private StudentBasicInfo basicInfo;
+    @JoinColumn(name = "admin_id", nullable = false)
+    private Admin admin;
+    
+//    @ManyToOne
+//    @JoinColumn(name = "student_id", nullable = false)
+//    private StudentBasicInfo basicInfo;
     
     @OneToMany(mappedBy = "scholarInfo", cascade = CascadeType.ALL)
 	private List<ScholarApplicants> scholarApplicants;

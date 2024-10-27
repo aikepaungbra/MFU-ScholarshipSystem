@@ -12,4 +12,17 @@ public class ScholarshipFormDto {
 	private ScholarshipHistoryDto scholarshipHistoryDto;
 	private List<SiblingInfoDto> siblingInfoDtos;
 
+	private FamilyStatusDto familyStatusDto;
+
+	private FatherInfoDto fatherInfoDto;
+
+	private GurdianInfoDto gurdianInfoDto;
+
+	private List<LoanHistoryDto> loanHistoryDtos;
+
+	private MotherInfoDto motherInfoDto;
+
+	private StudentAddressDto studentAddressDto;
+
+	private List<ScholarshipHistoryDto> scholarshipHistoryDtos;
 }

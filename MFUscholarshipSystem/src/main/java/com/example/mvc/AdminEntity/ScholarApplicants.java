@@ -4,6 +4,8 @@ import com.example.mvc.Entity.ScholarInfo;
 import com.example.mvc.Entity.StudentBasicInfo;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -18,7 +20,7 @@ public class ScholarApplicants {
 	
 
     @Id
-    private int history_id;
+    private int applicant_id;
     
     @ManyToOne
     @JoinColumn(name = "student_id", nullable = false)
@@ -28,7 +30,17 @@ public class ScholarApplicants {
     @JoinColumn(name = "scholar_id", nullable = false)
     private ScholarInfo scholarInfo;
     
-    private String status;
+    
+    
+    @Enumerated(EnumType.STRING)
+    private ApplicationStatus status;
+    
+    
+    public enum ApplicationStatus{
+    	PENDING,
+        APPROVED,
+        REJECTED
+    }
     
     
 }

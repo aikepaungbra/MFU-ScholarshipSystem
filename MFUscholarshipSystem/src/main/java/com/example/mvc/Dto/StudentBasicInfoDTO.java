@@ -21,11 +21,25 @@ public class StudentBasicInfoDTO {
 	private String student_email;
 	private String student_advisorName;
 	
+	private FamilyStatusDto familyStatusDto;
+	
+	private FatherInfoDto fatherInfoDto;
+	
+	private GurdianInfoDto gurdianInfoDto;
+	
+	private List<LoanHistoryDto> loanHistoryDtos;
+	
+	private MotherInfoDto motherInfoDto;
+	
+	private StudentAddressDto studentAddressDto;
+	
 	private LastInfoDto lastInfoDto;
 
 	private List<SiblingInfoDto> siblingInfoDtos;
 
 	private List<ScholarshipHistoryDto> scholarshipHistoryDtos;
+	
+	
 
 	
 

@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class SiblingInfoDto {
 	
-	private Long student_id;
+
     private int sibling_order;
     private String sibling_Name;
     private LocalDate sibling_birthday;

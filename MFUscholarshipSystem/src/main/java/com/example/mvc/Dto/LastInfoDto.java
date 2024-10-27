@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class LastInfoDto {
 	
-	private Long student_id;
+	
 //	private byte[] advisorRecommendationLetter;
 //	private byte[] familyIncomeCertifiacation;
 //	private byte[] familyStatusCertification;
@@ -16,11 +16,15 @@ public class LastInfoDto {
 	private String familyIncomeCertifiacation;//familyIncomeCertification
 	private String familyStatusCertification;
 	private String nonParentalGuardianshipCertification;
+	
 	private String signature;
 	private LocalDate scholarship_date;
 	
 	private int totalFamilyIncome;
     private int totalFamilyExpensive;
     private int totalMontylyDebt;
+    
+    private String mfuScholarshipEssay;
+    private String howYouSpendEssay;
 
 }
