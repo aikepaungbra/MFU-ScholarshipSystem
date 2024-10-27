@@ -6,10 +6,13 @@ import lombok.Data;
 
 @Data
 public class ScholarshipFormDto {
+	
+	private int scholar_id;
 
 	private StudentBasicInfoDTO studentBasicInfoDTO;
+	
 	private LastInfoDto lastInfoDto;
-	private ScholarshipHistoryDto scholarshipHistoryDto;
+	
 	private List<SiblingInfoDto> siblingInfoDtos;
 
 	private FamilyStatusDto familyStatusDto;
