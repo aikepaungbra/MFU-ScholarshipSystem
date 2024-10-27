@@ -1,7 +1,9 @@
 package com.example.mvc.helper;
 
 import jakarta.persistence.MappedSuperclass;
+import lombok.Data;
 
+@Data
 @MappedSuperclass
 public abstract class ParentDetails {
 

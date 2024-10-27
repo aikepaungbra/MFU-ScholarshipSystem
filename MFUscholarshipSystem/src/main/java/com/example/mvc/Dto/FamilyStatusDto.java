@@ -1,12 +1,14 @@
 package com.example.mvc.Dto;
 
+import com.example.mvc.Entity.FamilyStatus;
+
 import lombok.Data;
 
 @Data
 public class FamilyStatusDto {
 
 
-	private FamilyStatusOption familyStatusOption;
+	private FamilyStatus.FamilyStatusOption familyStatusOption;
 
 	private String additionalDetails;
 
