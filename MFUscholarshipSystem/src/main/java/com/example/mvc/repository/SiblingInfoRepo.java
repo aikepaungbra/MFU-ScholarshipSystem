@@ -8,6 +8,6 @@ import com.example.mvc.helper.SiblingInfoId;
 
 
 @Repository
-public interface SiblingInfoRepo extends CrudRepository<SiblingInfo, Long>{
+public interface SiblingInfoRepo extends CrudRepository<SiblingInfo, SiblingInfoId>{
 
 }
