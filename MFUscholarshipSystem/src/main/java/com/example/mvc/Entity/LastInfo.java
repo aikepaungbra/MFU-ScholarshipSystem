@@ -2,6 +2,7 @@ package com.example.mvc.Entity;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -22,9 +23,20 @@ public class LastInfo {
     @JoinColumn(name = "student_id")
     private StudentBasicInfo studentBasicInfo;
 	
+	@Lob
+	@Column(columnDefinition = "MEDIUMBLOB")
 	private String advisorRecommendationLetter;
+	
+	@Lob
+	@Column(columnDefinition = "MEDIUMBLOB")
 	private String familyIncomeCertifiacation;
+	
+	@Lob
+	@Column(columnDefinition = "MEDIUMBLOB")
 	private String familyStatusCertification;
+	
+	@Lob
+	@Column(columnDefinition = "MEDIUMBLOB")
 	private String nonParentalGuardianshipCertification;
 	
 	private String signature;
@@ -35,16 +47,13 @@ public class LastInfo {
     private int totalMontylyDebt;
     
     @Lob
+    @Column(columnDefinition = "TEXT")
     private String mfuScholarshipEssay;
     
     @Lob
+    @Column(columnDefinition = "TEXT")
     private String howYouSpendEssay;
 	
     
-//	private byte[] advisorRecommendationLetter;
-//	private byte[] familyIncomeCertifiacation;
-//	private byte[] familyStatusCertification;
-//	private byte[] nonParentalGuardianshipCertification;
-	
 
 }

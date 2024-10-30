@@ -38,10 +38,7 @@ public class ScholarInfo {
     @JoinColumn(name = "admin_id", nullable = false)
     private Admin admin;
     
-//    @ManyToOne
-//    @JoinColumn(name = "student_id", nullable = false)
-//    private StudentBasicInfo basicInfo;
-    
+  
     @OneToMany(mappedBy = "scholarInfo", cascade = CascadeType.ALL)
 	private List<ScholarApplicants> scholarApplicants;
     

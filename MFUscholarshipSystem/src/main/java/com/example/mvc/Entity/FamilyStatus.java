@@ -1,10 +1,12 @@
 package com.example.mvc.Entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
@@ -26,19 +28,29 @@ public class FamilyStatus {
 
 	private String additionalDetails;
 
+	@Lob
+	@Column(columnDefinition = "MEDIUMBLOB")
 	private String housePhoto1;
+	
+	@Lob
+	@Column(columnDefinition = "MEDIUMBLOB")
 	private String housePhoto2;
+	
+	@Lob
+	@Column(columnDefinition = "MEDIUMBLOB")
 	private String housePhoto3;
+	
+	@Lob
+	@Column(columnDefinition = "MEDIUMBLOB")
 	private String housePhoto4;
 	
-//	private byte[] housePhoto1;
-//	private byte[] housePhoto2;
-//	private byte[] housePhoto3;
-//	private byte[] housePhoto4;
 	
 	public enum FamilyStatusOption {
 		marriedAndLiveToghther, marriedAndLiveSeparate, divorcedOrSeparete, fatherPassedAway, motherPassedAway,
 		bothParentDoNotSupport, others,
 	}
+	
+
+
 
 }

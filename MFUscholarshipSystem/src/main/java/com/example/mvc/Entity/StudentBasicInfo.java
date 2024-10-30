@@ -7,6 +7,8 @@ import com.example.mvc.AdminEntity.ScholarApplicants;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
@@ -20,6 +22,13 @@ public class StudentBasicInfo {
 
 	@Id
 	private Long student_id;
+	
+	@Enumerated(EnumType.STRING)
+	private Title student_title; 
+	
+	public enum Title {
+	    MR, MRS, MS
+	}
 
 	private String student_name;
 	private LocalDate student_dateOfBirth;

@@ -28,9 +28,6 @@ public class ScholarshipHistory {
     private int scholarAmount;
 
    
-
-    
-    
     @ManyToOne
     @JoinColumn(name = "student_id", insertable = false, updatable = false)
     private StudentBasicInfo basicInfo;

@@ -1,21 +1,13 @@
 package com.example.mvc.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.mvc.AdminEntity.ScholarApplicants;
-import com.example.mvc.Dto.FamilyStatusDto;
-import com.example.mvc.Dto.FatherInfoDto;
-import com.example.mvc.Dto.GurdianInfoDto;
-import com.example.mvc.Dto.LastInfoDto;
 import com.example.mvc.Dto.LoanHistoryDto;
-import com.example.mvc.Dto.MotherInfoDto;
 import com.example.mvc.Dto.ScholarshipFormDto;
 import com.example.mvc.Dto.ScholarshipHistoryDto;
 import com.example.mvc.Dto.SiblingInfoDto;
-import com.example.mvc.Dto.StudentBasicInfoDTO;
 import com.example.mvc.Entity.FamilyStatus;
 import com.example.mvc.Entity.FatherInfo;
 import com.example.mvc.Entity.GurdianInfo;
@@ -28,7 +20,7 @@ import com.example.mvc.Entity.SiblingInfo;
 import com.example.mvc.Entity.StudentAddress;
 import com.example.mvc.Entity.StudentBasicInfo;
 import com.example.mvc.adminRepository.ScholarApplicantsRepo;
-import com.example.mvc.helper.SiblingInfoId;
+import com.example.mvc.helper.BusinessException;
 import com.example.mvc.repository.FamilyStatusRepo;
 import com.example.mvc.repository.FatherInfoRepo;
 import com.example.mvc.repository.GurdianInfoRepo;
@@ -90,6 +82,7 @@ public class ScholarshipFormService {
 					StudentBasicInfo newStudentBasicInfo = new StudentBasicInfo();
 					
 					newStudentBasicInfo.setStudent_id(scholarshipFormDto.getStudentBasicInfoDTO().getStudent_id());
+					newStudentBasicInfo.setStudent_title(scholarshipFormDto.getStudentBasicInfoDTO().getTitle());
 					newStudentBasicInfo.setStudent_name(scholarshipFormDto.getStudentBasicInfoDTO().getStudent_name());
 					newStudentBasicInfo.setStudent_dateOfBirth(scholarshipFormDto.getStudentBasicInfoDTO().getStudent_dateOfBirth());
 					newStudentBasicInfo.setStudent_age(scholarshipFormDto.getStudentBasicInfoDTO().getStudent_age());
@@ -104,7 +97,7 @@ public class ScholarshipFormService {
 				});
 		
 		ScholarInfo scholarInfo = scholarInfoRepo.findById(scholarshipFormDto.getScholar_id())
-	            .orElseThrow(() -> new IllegalArgumentException("Scholarship not found with id: " + scholarshipFormDto.getScholar_id()));
+	            .orElseThrow(() -> new BusinessException("Scholarship not found with id: " + scholarshipFormDto.getScholar_id()));
 		
 		ScholarApplicants scholarApplicant = new ScholarApplicants();
 	    scholarApplicant.setScholarInfo(scholarInfo); 

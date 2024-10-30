@@ -3,12 +3,16 @@ package com.example.mvc.Dto;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.example.mvc.Entity.StudentBasicInfo;
+
 import lombok.Data;
 
 @Data
 public class StudentBasicInfoDTO {
 
 	private Long student_id;
+	
+	private StudentBasicInfo.Title title;
 
 	private String student_name;
 	private LocalDate student_dateOfBirth;

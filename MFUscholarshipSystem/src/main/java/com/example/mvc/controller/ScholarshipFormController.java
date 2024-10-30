@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,54 +27,25 @@ public class ScholarshipFormController {
 	@Autowired
 	private ScholarshipFormService scholarshipFormService;
 
-//	@GetMapping("/new")
-//	public String displayScholarshipForm(Model model) {
-//		StudentBasicInfoDTO studentBasicInfoDTO = new StudentBasicInfoDTO();
-//
-//		// Initialize the sub-DTOs and add them to the StudentBasicInfoDTO object
-//		studentBasicInfoDTO.setLastInfoDto(new LastInfoDto());
-//
-//		// Create a list with one ScholarshipHistoryDto and set it
-//		List<ScholarshipHistoryDto> scholarshipHistoryList = List.of(new ScholarshipHistoryDto());
-//		studentBasicInfoDTO.setScholarshipHistoryDtos(scholarshipHistoryList);
-//
-//		// Add a sibling placeholder
-//		studentBasicInfoDTO.setSiblingInfoDtos(List.of(new SiblingInfoDto()));
-//
-//		// Add the StudentBasicInfoDTO object to the model
-//		model.addAttribute("studentBasicInfoDTO", studentBasicInfoDTO);
-//
+	@GetMapping("/form")
+	public String getScholarshipForm(Model model) {
+		model.addAttribute("scholarshipFormDto", new ScholarshipFormDto());
+		return "scholarshipForm";
+	}
+
+	@PostMapping("/submit")
+	public String saveScholarshipForm(@ModelAttribute("scholarshipFormDto") ScholarshipFormDto scholarshipFormDto,
+			Model model) {
+		scholarshipFormService.saveScholarshipForm(scholarshipFormDto);
+		model.addAttribute("message", "Scholarship form submitted successfully!");
+		return "formSuccess";
+	}
+
+//	@GetMapping("/form/{id}")
+//	public String getFormById(@PathVariable("id") Long studentId, Model model) {
+//		ScholarshipFormDto scholarshipFormDto = scholarshipFormService.getScholarshipFormById(studentId);
+//		model.addAttribute("scholarshipFormDto", scholarshipFormDto);
 //		return "scholarshipForm";
 //	}
-//
-//	// Method to handle form submission
-//	@PostMapping("/submit")
-//	public String submitScholarshipForm(@ModelAttribute StudentBasicInfoDTO studentBasicInfoDTO,
-//			@ModelAttribute LastInfoDto lastInfoDto, @ModelAttribute ScholarshipHistoryDto scholarshipHistoryDto,
-//			@ModelAttribute List<SiblingInfoDto> siblingInfoDtos, Model model) {
-//
-//		try {
-//			// Call the service to save the form data
-//			scholarshipFormService.saveScholarshipForm(studentBasicInfoDTO, lastInfoDto, scholarshipHistoryDto,
-//					siblingInfoDtos);
-//			model.addAttribute("message", "Form submitted successfully!");
-//			return "formSuccess"; // return a success page after submission
-//		} catch (Exception e) {
-//			// In case of errors, return the form page with an error message
-//			model.addAttribute("error", "An error occurred while submitting the form: " + e.getMessage());
-//			return "scholarshipForm"; // return back to the form page on error
-//		}
-//	}
-
-//	@PostMapping("/submit")
-//    public String submitScholarshipForm(@RequestBody ScholarshipFormDto scholarshipFormDto) {
-//        // Extract the individual DTOs from the combined DTO
-//        scholarshipFormService.saveScholarshipForm(
-//            scholarshipFormDto.getStudentBasicInfoDTO(),
-//            scholarshipFormDto.getLastInfoDto(),
-//            scholarshipFormDto.getScholarshipHistoryDto(),
-//            scholarshipFormDto.getSiblingInfoDtos()
-//        );
-//        return "Form submitted successfully!";}
 
 }
