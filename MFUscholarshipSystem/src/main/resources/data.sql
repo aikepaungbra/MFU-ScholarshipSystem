@@ -1,0 +1,1 @@
+INSERT INTO admin (admin_email, admin_password) VALUES ('admin@example.com', 'admin@example.com')
