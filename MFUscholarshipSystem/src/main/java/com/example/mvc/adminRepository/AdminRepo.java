@@ -8,8 +8,9 @@ import com.example.mvc.AdminEntity.Admin;
 
 public interface AdminRepo extends CrudRepository<Admin, Long> {
 
-	Optional<Admin> findByAdminEmailIgnoreCase(String email);
 
 
 
+	Admin findByAdminEmail(String email);
 }
+

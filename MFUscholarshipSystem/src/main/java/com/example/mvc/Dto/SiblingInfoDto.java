@@ -14,6 +14,7 @@ public class SiblingInfoDto {
     private LocalDate sibling_birthday;
     private int sibling_age;
     private String sibling_occupation;
+
     private String sibling_education;
     private int sibling_monthlyIncome;
     

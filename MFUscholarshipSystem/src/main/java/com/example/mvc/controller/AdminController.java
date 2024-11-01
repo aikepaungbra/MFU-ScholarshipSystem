@@ -22,8 +22,8 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
-    
-    
+
+
     @GetMapping("/adminAdd")
     public String addAdmin(Model model){
         model.addAttribute("adminDto",new AdminDto());
@@ -35,50 +35,60 @@ public class AdminController {
         adminService.saveAdmin(adminDto);
         model.addAttribute("adminDto",adminDto);
         return "login";
-        }    
-    
-    
+        }
 
 
-    
+
+
+
     @PostMapping("/admin/login")
     public String login(@RequestParam("email") String email, @RequestParam("password") String password, Model model, HttpSession session) {
-        
+
     	if (adminService.login(email, password)) {
-            
+
     		session.setAttribute("adminEmail", email);
-            return "redirect:/admin/scholarships/create"; 
+            return "redirect:/api/admin/scholarships/create";
         } else {
             model.addAttribute("error", "Invalid email or password");
-            return "login"; 
+            return "login";
         }
     }
 
 
-    
+
     @GetMapping("/admin/scholarships/create")
-    public String showCreateScholarshipForm(HttpSession session, Model model) {
-        
+    public String showCreateScholarshipForm(Model model, HttpSession session) {
+        String adminEmail = (String) session.getAttribute("adminEmail");
 
-    	if (session.getAttribute("adminEmail") == null) {
-            return "redirect:/admin/login"; 
+        if (adminEmail == null) {
+            return "redirect:/api/admin/login";
         }
+
         model.addAttribute("scholarInfo", new ScholarInfo());
-        return "createNewScholarship";  
+        return "createNewScholarship";  // Render the create scholarship form
     }
 
-    
-   
+
+
     @PostMapping("/admin/scholarships/create")
     public String createNewScholarship(@ModelAttribute("scholarInfo") ScholarInfo scholarInfo, HttpSession session) {
-        
+
         String adminEmail = (String) session.getAttribute("adminEmail");
         if (adminEmail == null) {
-            return "redirect:/admin/login"; 
+            return "redirect:/api/admin/login";
         }
 
+        Admin admin = adminService.findByEmail(adminEmail);
+        if (admin == null) {
+            return "redirect:/api/admin/login";  // Redirect if admin is not found
+        }
+
+        scholarInfo.setAdmin(admin);
+
+        // Save the scholarship information
+
         adminService.createNewScholarship(scholarInfo);
-        return "redirect:/admin/scholarships";  
+        return "createNewScholarship";
     }
 
 }

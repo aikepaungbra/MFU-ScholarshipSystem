@@ -10,7 +10,7 @@
     <h1>Create New Scholarship</h1>
     
     <!-- Form to create a new scholarship -->
-    <form th:action="@{/admin/scholarships/create}" th:object="${scholarInfo}" method="post">
+    <form th:action="@{/api/admin/scholarships/create}" th:object="${scholarInfo}" method="post">
         <div>
             <label for="scholar_name">Scholarship Name:</label>
             <input type="text" id="scholar_name" th:field="*{scholar_name}" required>

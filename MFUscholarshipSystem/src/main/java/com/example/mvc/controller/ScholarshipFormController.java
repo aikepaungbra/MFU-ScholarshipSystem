@@ -20,7 +20,7 @@ import com.example.mvc.Dto.SiblingInfoDto;
 import com.example.mvc.Dto.StudentBasicInfoDTO;
 import com.example.mvc.service.ScholarshipFormService;
 
-@RestController
+@Controller
 @RequestMapping("/scholarship-form")
 public class ScholarshipFormController {
 

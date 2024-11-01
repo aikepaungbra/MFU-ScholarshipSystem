@@ -24,7 +24,7 @@ public class Admin {
 	
     private String adminPassword;
     
-    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
-    private List<ScholarInfo> scholarships;
+//    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
+//    private List<ScholarInfo> scholarships;
 
 }

@@ -8,6 +8,6 @@ public class AdminDto {
 	private Long admin_id;
 	private String adminEmail;
 	private String adminPassword;
-	private List<ScholarInfoDTO> scholarships;
+//	private List<ScholarInfoDTO> scholarships;
 
 }

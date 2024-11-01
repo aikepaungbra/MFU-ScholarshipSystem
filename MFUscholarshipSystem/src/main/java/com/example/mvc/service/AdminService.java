@@ -36,6 +36,10 @@ public class AdminService {
 		adminRepository.save(admin);
 		}
 
+	public Admin findByEmail(String email) {
+		return adminRepository.findByAdminEmail(email);  // Call repository method
+	}
+
 	public void createAdmin(String email, String password) {
 
 		var admin = new Admin();
@@ -48,16 +52,9 @@ public class AdminService {
 	}
 
 	public boolean login(String email, String password) {
-		Optional<Admin> adminOptional = adminRepository.findByAdminEmailIgnoreCase(email);
+		Admin admin = adminRepository.findByAdminEmail(email);
 
-		if (adminOptional.isPresent()) {
-			Admin admin = adminOptional.get();
-			System.out.println("Admin found: " + admin);
-			return admin.getAdminPassword().equals(password);
-		}
-
-		System.out.println("Admin not found for email: " + email);
-		return false;
+		return admin != null && admin.getAdminPassword().equals(password);
 	}
 
 	public ScholarApplicants updateApplicantStatus(int applicant_Id, ScholarApplicants.ApplicationStatus status) {
