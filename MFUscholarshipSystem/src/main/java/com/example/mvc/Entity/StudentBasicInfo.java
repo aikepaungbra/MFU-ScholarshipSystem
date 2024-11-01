@@ -5,15 +5,7 @@ import java.util.List;
 
 import com.example.mvc.AdminEntity.ScholarApplicants;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
@@ -40,6 +32,9 @@ public class StudentBasicInfo {
 	private String student_phoneNumber;
 	private String student_email;
 	private String student_advisorName;
+
+	@Lob
+	private String studentPhoto;
 	
 	@OneToMany(mappedBy = "basicInfo", cascade = CascadeType.ALL)
 	private List<ScholarApplicants> scholarApplicants;

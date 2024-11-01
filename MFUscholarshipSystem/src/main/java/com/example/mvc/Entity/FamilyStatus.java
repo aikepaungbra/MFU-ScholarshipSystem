@@ -29,20 +29,33 @@ public class FamilyStatus {
 	private String additionalDetails;
 
 	@Lob
-	@Column(columnDefinition = "MEDIUMBLOB")
 	private String housePhoto1;
-	
+
 	@Lob
-	@Column(columnDefinition = "MEDIUMBLOB")
 	private String housePhoto2;
-	
+
 	@Lob
-	@Column(columnDefinition = "MEDIUMBLOB")
 	private String housePhoto3;
-	
+
 	@Lob
-	@Column(columnDefinition = "MEDIUMBLOB")
 	private String housePhoto4;
+
+
+//	@Lob
+//	@Column(columnDefinition = "MEDIUMBLOB")
+//	private String housePhoto1;
+//
+//	@Lob
+//	@Column(columnDefinition = "MEDIUMBLOB")
+//	private String housePhoto2;
+//
+//	@Lob
+//	@Column(columnDefinition = "MEDIUMBLOB")
+//	private String housePhoto3;
+//
+//	@Lob
+//	@Column(columnDefinition = "MEDIUMBLOB")
+//	private String housePhoto4;
 	
 	
 	public enum FamilyStatusOption {

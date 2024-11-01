@@ -34,6 +34,7 @@ import com.example.mvc.repository.StudentAddressRepo;
 import com.example.mvc.repository.StudentBasicInfoRepo;
 
 import jakarta.transaction.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ScholarshipFormService {
@@ -93,7 +94,11 @@ public class ScholarshipFormService {
 					newStudentBasicInfo.setStudent_phoneNumber(scholarshipFormDto.getStudentBasicInfoDTO().getStudent_phoneNumber());
 					newStudentBasicInfo.setStudent_email(scholarshipFormDto.getStudentBasicInfoDTO().getStudent_email());
 					newStudentBasicInfo.setStudent_advisorName(scholarshipFormDto.getStudentBasicInfoDTO().getStudent_advisorName());
-					return studentBasicInfoRepository.save(newStudentBasicInfo);
+
+                    MultipartFile studentPhotoFile = scholarshipFormDto.getStudentBasicInfoDTO().getStudentPhotoFile();
+                    newStudentBasicInfo.setStudentPhoto(FileService.convertFileToBase64(studentPhotoFile));
+
+                    return studentBasicInfoRepository.save(newStudentBasicInfo);
 				});
 		
 		ScholarInfo scholarInfo = scholarInfoRepo.findById(scholarshipFormDto.getScholar_id())
@@ -108,15 +113,31 @@ public class ScholarshipFormService {
 		
 		LastInfo lastInfo = new LastInfo();
         lastInfo.setStudentBasicInfo(studentBasicInfo);
-        lastInfo.setAdvisorRecommendationLetter(scholarshipFormDto.getLastInfoDto().getAdvisorRecommendationLetter());
-        lastInfo.setFamilyIncomeCertifiacation(scholarshipFormDto.getLastInfoDto().getFamilyIncomeCertifiacation());
-        lastInfo.setFamilyStatusCertification(scholarshipFormDto.getLastInfoDto().getFamilyStatusCertification());
-        lastInfo.setNonParentalGuardianshipCertification(scholarshipFormDto.getLastInfoDto().getNonParentalGuardianshipCertification());
+
+        MultipartFile advisorRecommendationLetterFile = scholarshipFormDto.getLastInfoDto().getAdvisorRecommendationLetterFile();
+        lastInfo.setAdvisorRecommendationLetter(FileService.convertFileToBase64(advisorRecommendationLetterFile));
+
+        MultipartFile familyIncomeCertificationFile = scholarshipFormDto.getLastInfoDto().getFamilyIncomeCertificationFile();
+        lastInfo.setFamilyIncomeCertification(FileService.convertFileToBase64(familyIncomeCertificationFile));
+
+        MultipartFile familyStatusCertificationFile = scholarshipFormDto.getLastInfoDto().getFamilyStatusCertificationFile();
+        lastInfo.setFamilyStatusCertification(FileService.convertFileToBase64(familyStatusCertificationFile));
+
+        MultipartFile nonParentalGuardianshipCertificationFile = scholarshipFormDto.getLastInfoDto().getNonParentalGuardianshipCertificationFile();
+        lastInfo.setNonParentalGuardianshipCertification(FileService.convertFileToBase64(nonParentalGuardianshipCertificationFile));
+
+
+//        lastInfo.setAdvisorRecommendationLetter(scholarshipFormDto.getLastInfoDto().getAdvisorRecommendationLetter());
+//        lastInfo.setFamilyIncomeCertifiacation(scholarshipFormDto.getLastInfoDto().getFamilyIncomeCertifiacation());
+//        lastInfo.setFamilyStatusCertification(scholarshipFormDto.getLastInfoDto().getFamilyStatusCertification());
+//        lastInfo.setNonParentalGuardianshipCertification(scholarshipFormDto.getLastInfoDto().getNonParentalGuardianshipCertification());
+
+
         lastInfo.setSignature(scholarshipFormDto.getLastInfoDto().getSignature());
         lastInfo.setScholarship_date(scholarshipFormDto.getLastInfoDto().getScholarship_date());
         lastInfo.setTotalFamilyIncome(scholarshipFormDto.getLastInfoDto().getTotalFamilyIncome());
         lastInfo.setTotalFamilyExpensive(scholarshipFormDto.getLastInfoDto().getTotalFamilyExpensive());
-        lastInfo.setTotalMontylyDebt(scholarshipFormDto.getLastInfoDto().getTotalMontylyDebt());
+        lastInfo.setTotalMonthlyDebt(scholarshipFormDto.getLastInfoDto().getTotalMonthlyDebt());
         
         lastInfoRepository.save(lastInfo);
         
@@ -125,10 +146,23 @@ public class ScholarshipFormService {
         familyStatus.setStudentBasicInfo(studentBasicInfo);
         familyStatus.setFamilyStatusOption(scholarshipFormDto.getFamilyStatusDto().getFamilyStatusOption());
         familyStatus.setAdditionalDetails(scholarshipFormDto.getFamilyStatusDto().getAdditionalDetails());
-        familyStatus.setHousePhoto1(scholarshipFormDto.getFamilyStatusDto().getHousePhoto1());
-        familyStatus.setHousePhoto2(scholarshipFormDto.getFamilyStatusDto().getHousePhoto2());
-        familyStatus.setHousePhoto3(scholarshipFormDto.getFamilyStatusDto().getHousePhoto3());
-        familyStatus.setHousePhoto4(scholarshipFormDto.getFamilyStatusDto().getHousePhoto4());
+
+        MultipartFile housePhoto1File = scholarshipFormDto.getFamilyStatusDto().getHousePhoto1File();
+        familyStatus.setHousePhoto1(FileService.convertFileToBase64(housePhoto1File));
+
+        MultipartFile housePhoto2File = scholarshipFormDto.getFamilyStatusDto().getHousePhoto2File();
+        familyStatus.setHousePhoto2(FileService.convertFileToBase64(housePhoto2File));
+
+        MultipartFile housePhoto3File = scholarshipFormDto.getFamilyStatusDto().getHousePhoto3File();
+        familyStatus.setHousePhoto4(FileService.convertFileToBase64(housePhoto3File));
+
+        MultipartFile housePhoto4File = scholarshipFormDto.getFamilyStatusDto().getHousePhoto4File();
+        familyStatus.setHousePhoto4(FileService.convertFileToBase64(housePhoto4File));
+
+//        familyStatus.setHousePhoto1(scholarshipFormDto.getFamilyStatusDto().getHousePhoto1());
+//        familyStatus.setHousePhoto2(scholarshipFormDto.getFamilyStatusDto().getHousePhoto2());
+//        familyStatus.setHousePhoto3(scholarshipFormDto.getFamilyStatusDto().getHousePhoto3());
+//        familyStatus.setHousePhoto4(scholarshipFormDto.getFamilyStatusDto().getHousePhoto4());
         familyStatusRepo.save(familyStatus);
         
         

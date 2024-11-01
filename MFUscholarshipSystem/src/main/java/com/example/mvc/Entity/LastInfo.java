@@ -22,29 +22,42 @@ public class LastInfo {
     @MapsId
     @JoinColumn(name = "student_id")
     private StudentBasicInfo studentBasicInfo;
-	
+
+
 	@Lob
-	@Column(columnDefinition = "MEDIUMBLOB")
 	private String advisorRecommendationLetter;
-	
+
 	@Lob
-	@Column(columnDefinition = "MEDIUMBLOB")
-	private String familyIncomeCertifiacation;
-	
+	private String familyIncomeCertification;
+
 	@Lob
-	@Column(columnDefinition = "MEDIUMBLOB")
 	private String familyStatusCertification;
-	
+
 	@Lob
-	@Column(columnDefinition = "MEDIUMBLOB")
 	private String nonParentalGuardianshipCertification;
+
+//	@Lob
+//	@Column(columnDefinition = "MEDIUMBLOB")
+//	private String advisorRecommendationLetter;
+//
+//	@Lob
+//	@Column(columnDefinition = "MEDIUMBLOB")
+//	private String familyIncomeCertifiacation;
+//
+//	@Lob
+//	@Column(columnDefinition = "MEDIUMBLOB")
+//	private String familyStatusCertification;
+//
+//	@Lob
+//	@Column(columnDefinition = "MEDIUMBLOB")
+//	private String nonParentalGuardianshipCertification;
 	
 	private String signature;
 	private LocalDate scholarship_date;
 	
 	private int totalFamilyIncome;
     private int totalFamilyExpensive;
-    private int totalMontylyDebt;
+    private int totalMonthlyDebt;
     
     @Lob
     @Column(columnDefinition = "TEXT")

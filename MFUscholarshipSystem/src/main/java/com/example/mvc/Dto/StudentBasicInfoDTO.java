@@ -5,7 +5,9 @@ import java.util.List;
 
 import com.example.mvc.Entity.StudentBasicInfo;
 
+import jakarta.persistence.Lob;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 public class StudentBasicInfoDTO {
@@ -24,7 +26,13 @@ public class StudentBasicInfoDTO {
 	private String student_phoneNumber;
 	private String student_email;
 	private String student_advisorName;
-	
+
+	@Lob
+	private String studentPhoto;
+
+	@Lob
+	private MultipartFile studentPhotoFile;
+
 	private FamilyStatusDto familyStatusDto;
 	
 	private FatherInfoDto fatherInfoDto;
