@@ -156,7 +156,7 @@
 
 <!--Content-->
 <main class="flex flex-col">
-    <form id="myForm" action="#" method="POST" th:action="@{/submit}" th:object="${scholarshipFormDto}">
+    <form id="myForm" action="#" method="POST" th:action="@{/api/submit}" th:object="${scholarshipFormDto}" enctype="multipart/form-data">
         <!--Basic Information-->
         <div class="bg-[#E5ECFF] text-[#003049] rounded-[32px] my-10 mx-32 py-[40px] px-[80px] relative">
             <button onclick="history.back()" class="absolute left-0 top-0 ml-10 mt-12 text-[#003049] text-2xl border border-[#003049] rounded-lg w-12 h-10 flex justify-center items-center mb-2">
@@ -178,71 +178,71 @@
                     <!-- Name-->
                     <div class="w-full mb-2">
                         <label for="stdname" class="block mb-1 text-sm">Student Name<span style="color: red;">*</span></label>
-                        <input th:field="*{StudentBasicInfoDTO.student_name}" type="text" id="stdname" name="stdname" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                        <input th:field="*{studentBasicInfoDTO.student_name}" type="text" id="stdname" name="stdname" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
                     </div>
                 </div>
                 <!--Birth date-->
                 <div class="mb-2">
                     <label for="stdbirthdate" class="block mb-1 text-sm">Date of Birth<span style="color: red;">*</span></label>
-                    <input th:field="*{StudentBasicInfoDTO.student_dateOfBirth}" type="text" name="stdbirthdate" id="stdbirthdate" class="w-full p-2 text-sm border border-gray-300 rounded-lg" placeholder="DD/MM/YYYY" required>
+                    <input th:field="*{studentBasicInfoDTO.student_dateOfBirth}" type="text" name="stdbirthdate" id="stdbirthdate" class="w-full p-2 text-sm border border-gray-300 rounded-lg" placeholder="DD/MM/YYYY" required>
                 </div>
                 <!-- Age -->
                 <div class="mb-2">
                     <label for="stdage" class="block mb-1 text-sm">Age<span style="color: red;">*</span></label>
-                    <input th:field="*{StudentBasicInfoDTO.student_age}" type="number" name="stdage" id="stdage" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    <input th:field="*{studentBasicInfoDTO.student_age}" type="number" name="stdage" id="stdage" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
                 </div>
                 <!-- Student ID -->
                 <div class="mb-2">
                     <label for="id" class="block mb-1 text-sm">Student ID<span style="color: red;">*</span></label>
-                    <input th:field="*{StudentBasicInfoDTO.student_id}" type="text" name="id" id="id" class="w-full p-2 text-sm border border-gray-300 rounded-lg" pattern="\d{10}" maxlength="10" placeholder="Enter 10-digit Student ID" required>
+                    <input th:field="*{studentBasicInfoDTO.student_id}" type="text" name="id" id="id" class="w-full p-2 text-sm border border-gray-300 rounded-lg" pattern="\d{10}" maxlength="10" placeholder="Enter 10-digit Student ID" required>
                 </div>
                 <!-- Year -->
                 <div class="mb-2">
                     <label for="year" class="block mb-1 text-sm">Year<span style="color: red;">*</span></label>
-                    <input th:field="*{StudentBasicInfoDTO.student_year}" type="number" name="year" id="year" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    <input th:field="*{studentBasicInfoDTO.student_year}" type="number" name="year" id="year" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
                 </div>
                 <!-- Major -->
                 <div class="mb-2">
                     <label for="major" class="block mb-1 text-sm">Major<span style="color: red;">*</span></label>
-                    <input th:field="*{StudentBasicInfoDTO.student_major}" type="text" name="major" id="major" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    <input th:field="*{studentBasicInfoDTO.student_major}" type="text" name="major" id="major" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
                 </div>
                 <!-- School Of -->
                 <div class="mb-2">
                     <label for="school" class="block mb-1 text-sm">School Of<span style="color: red;">*</span></label>
-                    <input th:field="*{StudentBasicInfoDTO.student_schoolOf}" type="text" name="school" id="school" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    <input th:field="*{studentBasicInfoDTO.schoolOf}" type="text" name="school" id="school" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
                 </div>
                 <!-- GPAX -->
                 <div class="mb-2">
                     <label for="gpax" class="block mb-1 text-sm">GPAX<span style="color: red;">*</span></label>
-                    <input th:field="*{StudentBasicInfoDTO.gpaX}" type="number" name="gpax" id="gpax" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    <input th:field="*{studentBasicInfoDTO.gpaX}" type="number" name="gpax" id="gpax" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
                 </div>
                 <!-- Phone -->
                 <div class="mb-2">
                     <label for="stdphone" class="block mb-1 text-sm">Student Phone Number<span style="color: red;">*</span></label>
-                    <input th:field="*{StudentBasicInfoDTO.student_phoneNumber}" type="number" name="stdphone" id="stdphone" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    <input th:field="*{studentBasicInfoDTO.student_phoneNumber}" type="number" name="stdphone" id="stdphone" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
                 </div>
                 <!-- Email -->
                 <div class="mb-2">
                     <label for="stdmail" class="block mb-1 text-sm">E-mail<span style="color: red;">*</span></label>
-                    <input th:field="*{StudentBasicInfoDTO.student_email}" type="email" name="stdmail" id="stdmail" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    <input th:field="*{studentBasicInfoDTO.student_email}" type="email" name="stdmail" id="stdmail" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
                 </div>
                 <!-- Advisor's Name -->
                 <div class="mb-2">
                     <label for="adv" class="block mb-1 text-sm">Advisor's Name<span style="color: red;">*</span></label>
-                    <input th:field="*{StudentBasicInfoDTO.student_advisorName}" type="text" name="adv" id="adv" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    <input th:field="*{studentBasicInfoDTO.student_advisorName}" type="text" name="adv" id="adv" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
                 </div>
                 <!-- Upload File -->
-                <!--div class="mb-2">
+                <div class="mb-2">
                     <label for="stdphoto" class="block mb-1 text-sm">Your Photo<span style="color: red;">*</span></label>
                     <div class="flex items-center space-x-4">
                         <label for="std_photo" class="border border-gray-300 py-2 px-4 h-[37px] w-[110px] justify-center rounded-lg shadow-md text-xs bg-white text-[#003049] cursor-pointer flex items-center">
                             <i class="mr-2 fa-solid fa-upload"></i>
                             Add File
                         </label>
-                        <input type="file" id="std_photo" name="std_photo" class="hidden" onchange="this.nextElementSibling.classList.remove('hidden'); this.nextElementSibling.innerText = this.files[0].name" required>
+                        <input th:field="*{studentBasicInfoDTO.studentPhotoFile}" type="file" id="std_photo" name="std_photo" class="hidden" onchange="this.nextElementSibling.classList.remove('hidden'); this.nextElementSibling.innerText = this.files[0].name" required>
                         <span class="hidden text-sm text-gray-600">No file selected</span>
                     </div>
-                </--div>-->
+                </div>
             </div>
         </div>
 
@@ -253,45 +253,45 @@
                 <!--City-->
                 <div class="mb-2">
                     <label for="city" class="block mb-1 text-sm">City/Town/Village<span style="color: red;">*</span></label>
-                    <input th:field="*{StudentAddressDto.permanent_city_town_village}" type="text" name="city" id="city" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    <input th:field="*{studentAddressDto.permanent_city_town_village}" type="text" name="city" id="city" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
                 </div>
                 <!--House no and moo-->
                 <div class="flex">
                     <!-- House No -->
                     <div class="mb-2">
                         <label for="hoseNo" class="block mb-1 text-sm">House Number<span style="color: red;">*</span></label>
-                        <input th:field="*{StudentAddressDto.permanent_houseNum}" type="number" name="houseNo" id="houseNo" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                        <input th:field="*{studentAddressDto.permanent_houseNum}" type="number" name="houseNo" id="houseNo" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
                     </div>
                     <!-- Moo -->
                     <div class="mb-2">
                         <label for="moo" class="block mb-1 text-sm">Moo<span style="color: red;">*</span></label>
-                        <input th:field="*{StudentAddressDto.permanent_moo}" type="number" name="moo" id="moo" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                        <input th:field="*{studentAddressDto.permanent_moo}" type="number" name="moo" id="moo" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
                     </div>
                 </div>
                 <!-- Road -->
                 <div class="mb-2">
                     <label for="road" class="block mb-1 text-sm">Road<span style="color: red;">*</span></label>
-                    <input th:field="*{StudentAddressDto.permanent_road}" type="text" name="road" id="road" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    <input th:field="*{studentAddressDto.permanent_road}" type="text" name="road" id="road" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
                 </div>
                 <!-- Subdistrict -->
                 <div class="mb-2">
                     <label for="subdis" class="block mb-1 text-sm">Subdistrict<span style="color: red;">*</span></label>
-                    <input th:field="*{StudentAddressDto.permanent_subDistrict}" type="text" name="subdis" id="subdis" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    <input th:field="*{studentAddressDto.permanent_subDistrict}" type="text" name="subdis" id="subdis" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
                 </div>
                 <!-- District -->
                 <div class="mb-2">
                     <label for="district" class="block mb-1 text-sm">District<span style="color: red;">*</span></label>
-                    <input th:field="*{StudentAddressDto.permanent_district}" type="text" name="district" id="district" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    <input th:field="*{studentAddressDto.permanent_district}" type="text" name="district" id="district" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
                 </div>
                 <!-- Province -->
                 <div class="mb-2">
                     <label for="province" class="block mb-1 text-sm">Province<span style="color: red;">*</span></label>
-                    <input th:field="*{StudentAddressDto.permanent_province}" type="text" name="province" id="province" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    <input th:field="*{studentAddressDto.permanent_province}" type="text" name="province" id="province" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
                 </div>
                 <!-- Postal Code -->
                 <div class="mb-2">
                     <label for="postcode" class="block mb-1 text-sm">Postal Code<span style="color: red;">*</span></label>
-                    <input th:field="*{StudentAddressDto.permanent_postalCode}" type="number" name="postcode" id="postcode" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    <input th:field="*{studentAddressDto.permanent_postalCode}" type="number" name="postcode" id="postcode" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
                 </div>
             </div>
         </div>
@@ -303,45 +303,45 @@
                 <!--City-->
                 <div class="mb-2">
                     <label for="city" class="block mb-1 text-sm">City/Town/Village</label>
-                    <input th:field="*{StudentAddressDto.current_city_town_village}" type="text" name="city" id="city" class="w-full p-2 text-sm border border-gray-300 rounded-lg">
+                    <input th:field="*{studentAddressDto.current_city_town_village}" type="text" name="city" id="city" class="w-full p-2 text-sm border border-gray-300 rounded-lg">
                 </div>
                 <!--House no and moo-->
                 <div class="flex">
                     <!-- House No -->
                     <div class="mb-2">
                         <label for="hoseNo" class="block mb-1 text-sm">House Number<span style="color: red;">*</span></label>
-                        <input th:field="*{StudentAddressDto.current_houseNum}" type="text" name="houseNo" id="houseNo" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                        <input th:field="*{studentAddressDto.current_houseNum}" type="text" name="houseNo" id="houseNo" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
                     </div>
                     <!-- Moo -->
                     <div class="mb-2">
                         <label for="moo" class="block mb-1 text-sm">Moo<span style="color: red;">*</span></label>
-                        <input th:field="*{StudentAddressDto.current_moo}" type="text" name="moo" id="moo" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                        <input th:field="*{studentAddressDto.current_moo}" type="text" name="moo" id="moo" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
                     </div>
                 </div>
                 <!-- Road -->
                 <div class="mb-2">
                     <label for="road" class="block mb-1 text-sm">Road<span style="color: red;">*</span></label>
-                    <input th:field="*{StudentAddressDto.current_road}" type="text" name="road" id="road" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    <input th:field="*{studentAddressDto.current_road}" type="text" name="road" id="road" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
                 </div>
                 <!-- Subdistrict -->
                 <div class="mb-2">
                     <label for="subdis" class="block mb-1 text-sm">Subdistrict<span style="color: red;">*</span></label>
-                    <input th:field="*{StudentAddressDto.current_subDistrict}" type="text" name="subdis" id="subdis" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    <input th:field="*{studentAddressDto.current_subDistrict}" type="text" name="subdis" id="subdis" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
                 </div>
                 <!-- District -->
                 <div class="mb-2">
                     <label for="district" class="block mb-1 text-sm">District<span style="color: red;">*</span></label>
-                    <input th:field="*{StudentAddressDto.current_district}" type="text" name="district" id="district" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    <input th:field="*{studentAddressDto.current_district}" type="text" name="district" id="district" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
                 </div>
                 <!-- Province -->
                 <div class="mb-2">
                     <label for="province" class="block mb-1 text-sm">Province<span style="color: red;">*</span></label>
-                    <input th:field="*{StudentAddressDto.current_province}" type="text" name="province" id="province" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    <input th:field="*{studentAddressDto.current_province}" type="text" name="province" id="province" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
                 </div>
                 <!-- Postal Code -->
                 <div class="mb-2">
                     <label for="postcode" class="block mb-1 text-sm">Postal Code<span style="color: red;">*</span></label>
-                    <input th:field="*{StudentAddressDto.current_postalCode}" type="number" name="postcode" id="postcode" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    <input th:field="*{studentAddressDto.current_postalCode}" type="number" name="postcode" id="postcode" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
                 </div>
             </div>
         </div>
@@ -355,12 +355,12 @@
                 <div class="flex gap-4">
                     <!-- Yes option -->
                     <div>
-                        <input th:field="*{ScholarshipHistoryDto.scholarBefore}" type="radio" id="receivedYes" name="received" value="true" required>
+                        <input th:field="*{scholarshipHistoryDto.scholarBefore}" type="radio" id="receivedYes" name="received" value="true" required>
                         <label for="receivedYes" class="text-sm">Yes</label>
                     </div>
                     <!-- No option -->
                     <div>
-                        <input th:field="*{ScholarshipHistoryDto.scholarBefore}" type="radio" id="receivedNo" name="received" value="false" required>
+                        <input th:field="*{scholarshipHistoryDto.scholarBefore}" type="radio" id="receivedNo" name="received" value="false" required>
                         <label for="receivedNo" class="text-sm">No</label>
                     </div>
                 </div>

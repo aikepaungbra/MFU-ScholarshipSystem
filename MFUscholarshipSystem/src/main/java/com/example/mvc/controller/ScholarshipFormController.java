@@ -32,7 +32,7 @@ public class ScholarshipFormController {
 	@GetMapping("/form")
 	public String getScholarshipForm(Model model) {
 		model.addAttribute("scholarshipFormDto", new ScholarshipFormDto());
-		return "scholarshipForm";
+		return "scholarshipFullForm";
 	}
 
 	@PostMapping("/submit")
