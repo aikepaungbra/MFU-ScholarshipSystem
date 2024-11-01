@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/output.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <title>Scholarship Page</title>
+    <style>
+        .arrow-up {
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 10px solid white;
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        #overlay {
+            z-index: 1000;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            form {
+                padding: 20px;
+            }
+
+            main {
+                margin: 0;
+            }
+
+            .grid-cols-3 {
+                grid-template-columns: 1fr;
+            }
+
+            input, select, button {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            p {
+                font-size: 0.9rem;
+            }
+
+            .flex {
+                flex-direction: column;
+            }
+
+            .text-lg {
+                font-size: 1.2rem;
+            }
+
+            .text-md {
+                font-size: 0.9rem;
+            }
+
+            .grid-cols-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .mx-32, .px-14, .py-2 {
+                margin: 0;
+                padding: 0;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #confirmationModal {
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+    </style>
+</head>
+<body>
+<!--Header-->
+<header class="w-full py-2 bg-[#003049]">
+    <div class="container flex items-center justify-between p-3 mx-auto px-14">
+        <!--Logo-->
+        <div class="mr-5">
+            <img src="../access/logo-mfu-v2.png" alt="logo" class="w-10 h-auto cursor-pointer">
+        </div>
+        <!--Header Text-->
+        <div class="mr-4 cursor-pointer">
+            <h1 class="text-2xl font-semibold text-white">Scholarship System</h1>
+            <h2 class="font-semibold text-white text-md">Mae Fah Luang University</h2>
+        </div>
+        <!--Right side header-->
+        <div class="flex items-center gap-4 ml-auto">
+            <!--Lang-->
+            <div class="flex items-center gap-2">
+                <button class="flex items-center justify-center w-6 h-6 text-xs bg-white rounded-md">EN</button>
+                <div class="w-px h-6 bg-slate-500"></div>
+                <button class="flex text-xs justify-center items-center w-6 h-6 text-white bg-[#003049] border border-white rounded-md">TH</button>
+            </div>
+            <div class="w-px h-10 bg-slate-500"></div>
+            <div class="flex gap-4">
+                <!--Profile Picture-->
+                <div class="w-10 h-10 my-1">
+                    <img src="../access/profile.png" alt="profile" class="object-cover w-full h-full rounded-full">
+                </div>
+                <!--Name-->
+                <div class="text-white">
+                    <p class="text-lg">6631503096</p>
+                    <p class="text-sm ">Mr. Thwin Khant Nyar Zaw</p>
+                </div>
+                <!--Dropdown button-->
+                <div class="relative">
+                    <button id="dropdownButton" class="relative z-50 p-2 mr-4 text-white rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="8 12 12 16 16 12"></polyline>
+                        </svg>
+                    </button>
+                    <!-- Overlay that appears below the button -->
+                    <div id="overlay" class="absolute hidden w-32 mt-4 mr-4 transform -translate-x-1/2 bg-white rounded-lg shadow-lg left-1/3">
+                        <div class="arrow-up"></div> <!-- Arrow pointing up -->
+                        <div class="flex items-center px-2 py-2 space-x-2 border rounded-lg border-[#003049]">
+                            <!-- Icon for log out -->
+                            <div>
+                                <button><i class="fa-solid fa-caret-down" style="color: #ffffff;"></i></button>
+                            </div>
+                            <!-- Log out text -->
+                            <button class="ml-8 text-[#003049] hover:text-blue-700" onclick="logout()">Log out</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!--Content-->
+<main class="flex flex-col">
+    <form id="myForm" action="#" method="POST" th:action="@{/submit}" th:object="${scholarshipFormDto}">
+        <!--Basic Information-->
+        <div class="bg-[#E5ECFF] text-[#003049] rounded-[32px] my-10 mx-32 py-[40px] px-[80px] relative">
+            <button onclick="history.back()" class="absolute left-0 top-0 ml-10 mt-12 text-[#003049] text-2xl border border-[#003049] rounded-lg w-12 h-10 flex justify-center items-center mb-2">
+                &lt;
+            </button>
+            <h1 class="text-xl font-semibold text-center">Mae Fah Luang University Scholarship</h1><br>
+            <p class="text-lg font-semibold text-left">Student Basic Information</p><br>
+            <div class="grid grid-cols-3 gap-4">
+                <div class="flex items-center">
+                    <!-- Drop Down -->
+                    <!--<div>
+                        <label for="std_title" class="sr-only">Title</label>
+                        <select id="std_title" name="std_title" class="border border-gray-300 rounded-lg p-2 h-[38px] mt-4" required>
+                            <option disabled selected>Title</option>
+                            <option value="Mr.">Mr.</option>
+                            <option value="Ms.">Ms.</option>
+                        </select>
+                    </div>-->
+                    <!-- Name-->
+                    <div class="w-full mb-2">
+                        <label for="stdname" class="block mb-1 text-sm">Student Name<span style="color: red;">*</span></label>
+                        <input th:field="*{StudentBasicInfoDTO.student_name}" type="text" id="stdname" name="stdname" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    </div>
+                </div>
+                <!--Birth date-->
+                <div class="mb-2">
+                    <label for="stdbirthdate" class="block mb-1 text-sm">Date of Birth<span style="color: red;">*</span></label>
+                    <input th:field="*{StudentBasicInfoDTO.student_dateOfBirth}" type="text" name="stdbirthdate" id="stdbirthdate" class="w-full p-2 text-sm border border-gray-300 rounded-lg" placeholder="DD/MM/YYYY" required>
+                </div>
+                <!-- Age -->
+                <div class="mb-2">
+                    <label for="stdage" class="block mb-1 text-sm">Age<span style="color: red;">*</span></label>
+                    <input th:field="*{StudentBasicInfoDTO.student_age}" type="number" name="stdage" id="stdage" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Student ID -->
+                <div class="mb-2">
+                    <label for="id" class="block mb-1 text-sm">Student ID<span style="color: red;">*</span></label>
+                    <input th:field="*{StudentBasicInfoDTO.student_id}" type="text" name="id" id="id" class="w-full p-2 text-sm border border-gray-300 rounded-lg" pattern="\d{10}" maxlength="10" placeholder="Enter 10-digit Student ID" required>
+                </div>
+                <!-- Year -->
+                <div class="mb-2">
+                    <label for="year" class="block mb-1 text-sm">Year<span style="color: red;">*</span></label>
+                    <input th:field="*{StudentBasicInfoDTO.student_year}" type="number" name="year" id="year" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Major -->
+                <div class="mb-2">
+                    <label for="major" class="block mb-1 text-sm">Major<span style="color: red;">*</span></label>
+                    <input th:field="*{StudentBasicInfoDTO.student_major}" type="text" name="major" id="major" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- School Of -->
+                <div class="mb-2">
+                    <label for="school" class="block mb-1 text-sm">School Of<span style="color: red;">*</span></label>
+                    <input th:field="*{StudentBasicInfoDTO.student_schoolOf}" type="text" name="school" id="school" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- GPAX -->
+                <div class="mb-2">
+                    <label for="gpax" class="block mb-1 text-sm">GPAX<span style="color: red;">*</span></label>
+                    <input th:field="*{StudentBasicInfoDTO.gpaX}" type="number" name="gpax" id="gpax" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Phone -->
+                <div class="mb-2">
+                    <label for="stdphone" class="block mb-1 text-sm">Student Phone Number<span style="color: red;">*</span></label>
+                    <input th:field="*{StudentBasicInfoDTO.student_phoneNumber}" type="number" name="stdphone" id="stdphone" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Email -->
+                <div class="mb-2">
+                    <label for="stdmail" class="block mb-1 text-sm">E-mail<span style="color: red;">*</span></label>
+                    <input th:field="*{StudentBasicInfoDTO.student_email}" type="email" name="stdmail" id="stdmail" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Advisor's Name -->
+                <div class="mb-2">
+                    <label for="adv" class="block mb-1 text-sm">Advisor's Name<span style="color: red;">*</span></label>
+                    <input th:field="*{StudentBasicInfoDTO.student_advisorName}" type="text" name="adv" id="adv" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Upload File -->
+                <!--div class="mb-2">
+                    <label for="stdphoto" class="block mb-1 text-sm">Your Photo<span style="color: red;">*</span></label>
+                    <div class="flex items-center space-x-4">
+                        <label for="std_photo" class="border border-gray-300 py-2 px-4 h-[37px] w-[110px] justify-center rounded-lg shadow-md text-xs bg-white text-[#003049] cursor-pointer flex items-center">
+                            <i class="mr-2 fa-solid fa-upload"></i>
+                            Add File
+                        </label>
+                        <input type="file" id="std_photo" name="std_photo" class="hidden" onchange="this.nextElementSibling.classList.remove('hidden'); this.nextElementSibling.innerText = this.files[0].name" required>
+                        <span class="hidden text-sm text-gray-600">No file selected</span>
+                    </div>
+                </--div>-->
+            </div>
+        </div>
+
+        <!--Permanent Address-->
+        <div class="bg-[#E5ECFF] text-[#003049] rounded-[32px] mb-10 mx-32 py-[40px] px-[80px]">
+            <p class="text-lg font-semibold text-left">Permanent Address</p><br>
+            <div class="grid grid-cols-3 gap-4">
+                <!--City-->
+                <div class="mb-2">
+                    <label for="city" class="block mb-1 text-sm">City/Town/Village<span style="color: red;">*</span></label>
+                    <input th:field="*{StudentAddressDto.permanent_city_town_village}" type="text" name="city" id="city" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!--House no and moo-->
+                <div class="flex">
+                    <!-- House No -->
+                    <div class="mb-2">
+                        <label for="hoseNo" class="block mb-1 text-sm">House Number<span style="color: red;">*</span></label>
+                        <input th:field="*{StudentAddressDto.permanent_houseNum}" type="number" name="houseNo" id="houseNo" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    </div>
+                    <!-- Moo -->
+                    <div class="mb-2">
+                        <label for="moo" class="block mb-1 text-sm">Moo<span style="color: red;">*</span></label>
+                        <input th:field="*{StudentAddressDto.permanent_moo}" type="number" name="moo" id="moo" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    </div>
+                </div>
+                <!-- Road -->
+                <div class="mb-2">
+                    <label for="road" class="block mb-1 text-sm">Road<span style="color: red;">*</span></label>
+                    <input th:field="*{StudentAddressDto.permanent_road}" type="text" name="road" id="road" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Subdistrict -->
+                <div class="mb-2">
+                    <label for="subdis" class="block mb-1 text-sm">Subdistrict<span style="color: red;">*</span></label>
+                    <input th:field="*{StudentAddressDto.permanent_subDistrict}" type="text" name="subdis" id="subdis" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- District -->
+                <div class="mb-2">
+                    <label for="district" class="block mb-1 text-sm">District<span style="color: red;">*</span></label>
+                    <input th:field="*{StudentAddressDto.permanent_district}" type="text" name="district" id="district" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Province -->
+                <div class="mb-2">
+                    <label for="province" class="block mb-1 text-sm">Province<span style="color: red;">*</span></label>
+                    <input th:field="*{StudentAddressDto.permanent_province}" type="text" name="province" id="province" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Postal Code -->
+                <div class="mb-2">
+                    <label for="postcode" class="block mb-1 text-sm">Postal Code<span style="color: red;">*</span></label>
+                    <input th:field="*{StudentAddressDto.permanent_postalCode}" type="number" name="postcode" id="postcode" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+            </div>
+        </div>
+
+        <!--Current Address-->
+        <div class="bg-[#E5ECFF] text-[#003049] rounded-[32px] mb-10 mx-32 py-[40px] px-[80px]">
+            <p class="text-lg font-semibold text-left">Current Address</p><br>
+            <div class="grid grid-cols-3 gap-4">
+                <!--City-->
+                <div class="mb-2">
+                    <label for="city" class="block mb-1 text-sm">City/Town/Village</label>
+                    <input th:field="*{StudentAddressDto.current_city_town_village}" type="text" name="city" id="city" class="w-full p-2 text-sm border border-gray-300 rounded-lg">
+                </div>
+                <!--House no and moo-->
+                <div class="flex">
+                    <!-- House No -->
+                    <div class="mb-2">
+                        <label for="hoseNo" class="block mb-1 text-sm">House Number<span style="color: red;">*</span></label>
+                        <input th:field="*{StudentAddressDto.current_houseNum}" type="text" name="houseNo" id="houseNo" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    </div>
+                    <!-- Moo -->
+                    <div class="mb-2">
+                        <label for="moo" class="block mb-1 text-sm">Moo<span style="color: red;">*</span></label>
+                        <input th:field="*{StudentAddressDto.current_moo}" type="text" name="moo" id="moo" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    </div>
+                </div>
+                <!-- Road -->
+                <div class="mb-2">
+                    <label for="road" class="block mb-1 text-sm">Road<span style="color: red;">*</span></label>
+                    <input th:field="*{StudentAddressDto.current_road}" type="text" name="road" id="road" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Subdistrict -->
+                <div class="mb-2">
+                    <label for="subdis" class="block mb-1 text-sm">Subdistrict<span style="color: red;">*</span></label>
+                    <input th:field="*{StudentAddressDto.current_subDistrict}" type="text" name="subdis" id="subdis" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- District -->
+                <div class="mb-2">
+                    <label for="district" class="block mb-1 text-sm">District<span style="color: red;">*</span></label>
+                    <input th:field="*{StudentAddressDto.current_district}" type="text" name="district" id="district" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Province -->
+                <div class="mb-2">
+                    <label for="province" class="block mb-1 text-sm">Province<span style="color: red;">*</span></label>
+                    <input th:field="*{StudentAddressDto.current_province}" type="text" name="province" id="province" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Postal Code -->
+                <div class="mb-2">
+                    <label for="postcode" class="block mb-1 text-sm">Postal Code<span style="color: red;">*</span></label>
+                    <input th:field="*{StudentAddressDto.current_postalCode}" type="number" name="postcode" id="postcode" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+            </div>
+        </div>
+
+        <!--Scholarship History-->
+        <div class="bg-[#E5ECFF] text-[#003049] rounded-[32px] mb-10 mx-32 py-[40px] px-[80px]">
+            <p class="text-lg font-semibold text-left">Scholarship History</p><br>
+            <!--Question-->
+            <div class="mb-6">
+                <label for="received" class="block mb-1 text-sm">Have you ever received any scholarship before?<span style="color: red;">*</span></label>
+                <div class="flex gap-4">
+                    <!-- Yes option -->
+                    <div>
+                        <input th:field="*{ScholarshipHistoryDto.scholarBefore}" type="radio" id="receivedYes" name="received" value="true" required>
+                        <label for="receivedYes" class="text-sm">Yes</label>
+                    </div>
+                    <!-- No option -->
+                    <div>
+                        <input th:field="*{ScholarshipHistoryDto.scholarBefore}" type="radio" id="receivedNo" name="received" value="false" required>
+                        <label for="receivedNo" class="text-sm">No</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scholarship Fields Wrapper -->
+            <div id="scholarships-wrapper">
+                <div class="grid grid-cols-3 gap-4 scholarship-group">
+                    <!-- Scholarship Name -->
+                    <div class="mb-2">
+                        <label for="scholarship_name" class="block mb-1 text-sm">Scholarship Name</label>
+                        <input type="text" name="scholarship_name[]" class="w-full p-2 text-sm border border-gray-300 rounded-lg">
+                    </div>
+                    <!-- Received Year -->
+                    <div class="mb-2">
+                        <label for="receivedYr" class="block mb-1 text-sm">Received Year</label>
+                        <select name="receivedYr[]" class="w-full p-2 text-sm border border-gray-300 rounded-lg">
+                            <option value="" disabled selected>Select Year</option>
+                            <script>
+                                // Generate options for years between 1900 and the current year
+                                const currentYear = new Date().getFullYear();
+                                for (let year = currentYear; year >= 1900; year--) {
+                                    document.write('<option value="' + year + '">' + year + '</option>');
+                                }
+                            </script>
+                        </select>
+                    </div>
+
+                    <!-- Amount -->
+                    <div class="mb-2">
+                        <label for="amount" class="block mb-1 text-sm">Amount (THB)</label>
+                        <input type="number" name="amount[]" class="w-full p-2 text-sm border border-gray-300 rounded-lg">
+                    </div>
+                    <!-- Delete Button -->
+                    <div class="flex items-center mb-2">
+                        <button type="button" class="px-4 py-2 text-xs text-white bg-red-600 rounded-lg delete-scholarship-btn">Delete</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hidden template for cloning new scholarship entries -->
+            <div id="scholarship-template" class="grid hidden grid-cols-3 gap-4 scholarship-group">
+                <!-- Scholarship Name -->
+                <div class="mb-2">
+                    <label for="scholarship_name" class="block mb-1 text-sm">Scholarship Name</label>
+                    <input type="text" name="scholarship_name[]" class="w-full p-2 text-sm border border-gray-300 rounded-lg">
+                </div>
+                <!-- Received Year -->
+                <div class="mb-2">
+                    <label for="receivedYr" class="block mb-1 text-sm">Received Year</label>
+                    <input type="number" name="receivedYr[]" class="w-full p-2 text-sm border border-gray-300 rounded-lg">
+                </div>
+                <!-- Amount -->
+                <div class="mb-2">
+                    <label for="amount" class="block mb-1 text-sm">Amount (THB)</label>
+                    <input type="number" name="amount[]" class="w-full p-2 text-sm border border-gray-300 rounded-lg">
+                </div>
+                <!-- Delete Button -->
+                <div class="flex items-center mb-2">
+                    <button type="button" class="px-4 py-2 text-xs text-white bg-red-600 rounded-lg delete-scholarship-btn">Delete</button>
+                </div>
+            </div>
+
+            <!-- Add field button -->
+            <div>
+                <p class="pt-2 mb-5 text-sm">Please click this button if you want to add another Scholarship
+                    <button type="button" id="add-scholarship-btn" class="text-white text-xs font-semibold bg-[#003049] mx-5 my-auto py-2 px-4 items-center rounded-lg">Add</button>
+                </p>
+            </div>
+
+            <!-- Student Loan Fund -->
+            <h1 class="mb-6 font-semibold text-left">Student Loan Fund</h1>
+            <div id="loans-wrapper">
+                <div class="grid grid-cols-3 gap-4 loan-group">
+                    <div>
+                        <label for="amount" class="block mb-1 text-sm">Loan received from academic year</label>
+                        <!-- Loan received -->
+                        <div class="flex gap-4">
+                            <!-- From year -->
+                            <div class="mb-2">
+                                <select name="receivedYr[]" id="receivedYr" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                                    <option disabled selected>Select Start Year</option>
+                                    <script>
+                                        for (let year = currentYear; year >= 1980; year--) {
+                                            document.write('<option value="' + year + '">' + year + '</option>');
+                                        }
+                                    </script>
+                                </select>
+                            </div>
+                            <!-- To year -->
+                            <div class="mb-2">
+                                <select name="toYr[]" id="toYr" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                                    <option disabled selected>Select End Year</option>
+                                    <script>
+                                        for (let year = currentYear; year >= 1980; year--) {
+                                            document.write('<option value="' + year + '">' + year + '</option>');
+                                        }
+                                    </script>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Amount -->
+                    <div class="mb-2">
+                        <label for="amount" class="block mb-1 text-sm">Amount (THB)</label>
+                        <input type="number" name="amount[]" class="w-full p-2 text-sm border border-gray-300 rounded-lg">
+                    </div>
+                    <!-- Delete Button -->
+                    <div class="flex items-end mb-2">
+                        <button type="button" class="px-4 py-2 text-xs text-white bg-red-600 rounded-lg delete-loan-btn">Delete</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hidden template for loan group (to be cloned) -->
+            <div id="loan-template" class="grid hidden grid-cols-3 gap-4 loan-group">
+                <div><label for="amount" class="block mb-1 text-sm">Loan received from academic year</label>
+                    <div class="flex gap-4">
+                        <!-- From Year -->
+                        <div class="mb-2">
+                            <select name="receivedYr[]" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                                <option disabled selected>Select Start Year</option>
+                                <script>
+                                    for (let year = currentYear; year >= 1980; year--) {
+                                        document.write('<option value="' + year + '">' + year + '</option>');
+                                    }
+                                </script>
+                            </select>
+                        </div>
+                        <!-- To Year -->
+                        <div class="mb-2">
+                            <select name="toYr[]" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                                <option disabled selected>Select End Year</option>
+                                <script>
+                                    for (let year = currentYear; year >= 1980; year--) {
+                                        document.write('<option value="' + year + '">' + year + '</option>');
+                                    }
+                                </script>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- Amount -->
+                <div class="mb-2">
+                    <label for="amount" class="block mb-1 text-sm">Amount (THB)</label>
+                    <input type="number" name="amount[]" class="w-full p-2 text-sm border border-gray-300 rounded-lg">
+                </div>
+                <!-- Delete Button -->
+                <div class="flex items-end mb-2">
+                    <button type="button" class="px-4 py-2 text-xs text-white bg-red-600 rounded-lg delete-loan-btn">Delete</button>
+                </div>
+            </div>
+
+            <!-- Add field button-->
+            <div>
+                <p class="pt-2 mb-5 text-sm">Please click this button if you want to add another Student Loan Fund
+                    <button type="button" id="add-SLF-btn" class="text-white text-xs font-semibold bg-[#003049] mx-5 my-auto py-2 px-4 items-center rounded-lg">Add</button>
+                </p>
+            </div>
+            <!-- Message Field -->
+            <div class="mb-2">
+                <label for="spend_plan" class="block mb-1 text-sm">How would you spend the scholarship if you received one?<span style="color: red;">*</span></label>
+                <textarea id="spend_plan" name="spend_plan" class="w-full p-2 text-sm border border-gray-300 rounded-lg" rows="4" placeholder="Tell us more about your plan" required></textarea>
+            </div>
+        </div>
+
+        <!-- Family status and Father information-->
+        <div class="bg-[#E5ECFF] text-[#003049] rounded-[32px] mb-10 mx-32 py-[40px] px-[80px]">
+            <h1 class="mb-3 text-lg font-semibold text-left">Family Status</h1>
+            <div class="marital-status-box w-[50%]">
+                <label for="maritalStatus" class="text-sm">Parents' Marital Status<span style="color: red;">*</span></label><br>
+                <!-- Select -->
+                <div class="p-5 my-10 space-y-5 bg-white rounded-lg">
+                    <div class="text-sm">Please select one option</div>
+                    <!--Married, live together-->
+                    <div class="flex items-center gap-2">
+                        <input type="radio" id="married-together" name="maritalStatus" value="married-together" required onclick="toggleInput('')">
+                        <label for="married-together" class="text-sm">Married and living together</label><br>
+                    </div>
+                    <!-- Married, live separately-->
+                    <div class="flex items-center gap-2">
+                        <input type="radio" id="married-separate" name="maritalStatus" value="married-separate" required onclick="toggleInput('')">
+                        <label for="married-separate" class="text-sm">Married and living separately due to work</label><br>
+                    </div>
+                    <!--Divorced-->
+                    <div class="flex items-center gap-2">
+                        <input type="radio" id="divorced" name="maritalStatus" value="divorced" required onclick="toggleInput('divorced-text')">
+                        <label for="divorced" class="text-sm">Divorced or separated, living with...</label>
+                        <input type="text" id="divorced-text" name="divorced-text" style="display:none;" placeholder="Specify..." class="text-sm" disabled><br>
+                    </div>
+                    <!-- father passed -->
+                    <div class="flex items-center gap-2">
+                        <input type="radio" id="father-passed" name="maritalStatus" value="father-passed" required onclick="toggleInput('father-passed-text')">
+                        <label for="father-passed" class="text-sm">Father passed away in year...</label>
+                        <input type="text" id="father-passed-text" name="father-passed-text" style="display:none;" placeholder="Year" class="text-sm" disabled><br>
+                    </div>
+                    <!-- mother passed -->
+                    <div class="flex items-center gap-2">
+                        <input type="radio" id="mother-passed" name="maritalStatus" value="mother-passed" required onclick="toggleInput('mother-passed-text')">
+                        <label for="mother-passed" class="text-sm">Mother passed away in year...</label>
+                        <input type="text" id="mother-passed-text" name="mother-passed-text" style="display:none;" placeholder="Year" class="text-sm" disabled><br>
+                    </div>
+                    <!-- Both don't provide support -->
+                    <div class="flex items-center gap-2">
+                        <input type="radio" id="no-support" name="maritalStatus" value="no-support" required onclick="toggleInput('')">
+                        <label for="no-support" class="text-sm">Both parents do not provide support</label><br>
+                    </div>
+                    <!-- Others -->
+                    <div class="flex items-center gap-2">
+                        <input type="radio" id="others" name="maritalStatus" value="others" required onclick="toggleInput('others-text')">
+                        <label for="others" class="text-sm">Others</label>
+                        <input type="text" id="others-text" name="others-text" style="display:none;" placeholder="Specify..." class="text-sm" disabled><br>
+                    </div>
+                </div>
+            </div>
+            <!-- Father's information -->
+            <p class="text-lg font-semibold text-left">Father's Information</p><br>
+            <div class="grid grid-cols-3 gap-4">
+                <div class="flex items-center">
+                    <!-- Drop Down -->
+                    <div>
+                        <label for="father_title" class="sr-only">Title</label>
+                        <select id="father_title" name="father_title" class="border border-gray-300 rounded-lg p-2 h-[38px] mt-4" required>
+                            <option disabled selected>Title</option>
+                            <option value="Mr.">Mr.</option>
+                        </select>
+                    </div>
+                    <!-- Name-->
+                    <div class="w-full mb-2">
+                        <label for="father_name" class="block mb-1 text-sm">Father Name<span style="color: red;">*</span></label>
+                        <input type="text" id="father_name" name="father_name" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    </div>
+                </div>
+                <!-- Age -->
+                <div class="mb-2">
+                    <label for="father_age" class="block mb-1 text-sm">Age<span style="color: red;">*</span></label>
+                    <input type="number" name="father_age" id="father_age" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Occupation -->
+                <div class="mb-2">
+                    <label for="father_occu" class="block mb-1 text-sm">Occupation<span style="color: red;">*</span></label>
+                    <input type="text" name="father_occu" id="father_occu" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Position -->
+                <div class="mb-2">
+                    <label for="father_position" class="block mb-1 text-sm">Position<span style="color: red;">*</span></label>
+                    <input type="text" name="father_position" id="father_position" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Monthly income -->
+                <div class="mb-2">
+                    <label for="father_monthly_income" class="block mb-1 text-sm">Monthly Income (THB)<span style="color: red;">*</span></label>
+                    <input type="number" name="father_monthly_income" id="father_monthly_income" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Yearly income -->
+                <div class="mb-2">
+                    <label for="father_yearly_income" class="block mb-1 text-sm">Yearly Income (THB)<span style="color: red;">*</span></label>
+                    <input type="number" name="father_yearly_income" id="father_yearly_income" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Land -->
+                <div class="mb-2">
+                    <label for="father_land" class="block mb-1 text-sm">Land Owned or Rent (Rai)<span style="color: red;">*</span></label>
+                    <input type="text" name="father_land" id="father_land" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Phone -->
+                <div class="mb-2">
+                    <label for="father_phone" class="block mb-1 text-sm">Phone Number<span style="color: red;">*</span></label>
+                    <input type="number" name="father_phone" id="father_phone" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+            </div>
+
+            <!--Address-->
+            <br><p class="font-semibold text-left">Address</p><br>
+            <div class="grid grid-cols-3 gap-4">
+                <!--City-->
+                <div class="mb-2">
+                    <label for="city" class="block mb-1 text-sm">City/Town/Village<span style="color: red;">*</span></label>
+                    <input type="text" name="city" id="city" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!--House no and moo-->
+                <div class="flex">
+                    <!-- House No -->
+                    <div class="mb-2">
+                        <label for="hoseNo" class="block mb-1 text-sm">House Number<span style="color: red;">*</span></label>
+                        <input type="number" name="houseNo" id="houseNo" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    </div>
+                    <!-- Moo -->
+                    <div class="mb-2">
+                        <label for="moo" class="block mb-1 text-sm">Moo<span style="color: red;">*</span></label>
+                        <input type="number" name="moo" id="moo" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    </div>
+                </div>
+                <!-- Road -->
+                <div class="mb-2">
+                    <label for="road" class="block mb-1 text-sm">Road<span style="color: red;">*</span></label>
+                    <input type="text" name="road" id="road" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Subdistrict -->
+                <div class="mb-2">
+                    <label for="subdis" class="block mb-1 text-sm">Subdistrict<span style="color: red;">*</span></label>
+                    <input type="text" name="subdis" id="subdis" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- District -->
+                <div class="mb-2">
+                    <label for="district" class="block mb-1 text-sm">District<span style="color: red;">*</span></label>
+                    <input type="text" name="district" id="district" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Province -->
+                <div class="mb-2">
+                    <label for="province" class="block mb-1 text-sm">Province<span style="color: red;">*</span></label>
+                    <input type="text" name="province" id="province" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Postal Code -->
+                <div class="mb-2">
+                    <label for="postcode" class="block mb-1 text-sm">Postal Code<span style="color: red;">*</span></label>
+                    <input type="number" name="postcode" id="postcode" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Phone -->
+                <div class="mb-2">
+                    <label for="father_phone" class="block mb-1 text-sm">Phone Number<span style="color: red;">*</span></label>
+                    <input type="number" name="father_phone" id="father_phone" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+            </div>
+
+            <!--Work Address-->
+            <br><p class="font-semibold text-left">Work Address</p><br>
+            <div class="grid grid-cols-3 gap-4">
+                <!--City-->
+                <div class="mb-2">
+                    <label for="city" class="block mb-1 text-sm">City/Town/Village<span style="color: red;">*</span></label>
+                    <input type="text" name="city" id="city" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!--House no and moo-->
+                <div class="flex">
+                    <!-- House No -->
+                    <div class="mb-2">
+                        <label for="hoseNo" class="block mb-1 text-sm">House Number<span style="color: red;">*</span></label>
+                        <input type="text" name="houseNo" id="houseNo" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    </div>
+                    <!-- Moo -->
+                    <div class="mb-2">
+                        <label for="moo" class="block mb-1 text-sm">Moo<span style="color: red;">*</span></label>
+                        <input type="text" name="moo" id="moo" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    </div>
+                </div>
+                <!-- Road -->
+                <div class="mb-2">
+                    <label for="road" class="block mb-1 text-sm">Road<span style="color: red;">*</span></label>
+                    <input type="text" name="road" id="road" class="w-full p-2 text-sm border border-gray-300 rounded-lg"required>
+                </div>
+                <!-- Subdistrict -->
+                <div class="mb-2">
+                    <label for="subdis" class="block mb-1 text-sm">Subdistrict<span style="color: red;">*</span></label>
+                    <input type="text" name="subdis" id="subdis" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- District -->
+                <div class="mb-2">
+                    <label for="district" class="block mb-1 text-sm">District<span style="color: red;">*</span></label>
+                    <input type="text" name="district" id="district" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Province -->
+                <div class="mb-2">
+                    <label for="province" class="block mb-1 text-sm">Province<span style="color: red;">*</span></label>
+                    <input type="text" name="province" id="province" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Postal Code -->
+                <div class="mb-2">
+                    <label for="postcode" class="block mb-1 text-sm">Postal Code<span style="color: red;">*</span></label>
+                    <input type="text" name="postcode" id="postcode" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Phone -->
+                <div class="mb-2">
+                    <label for="father_work_phone" class="block mb-1 text-sm">Work Phone Number<span style="color: red;">*</span></label>
+                    <input type="text" name="father_work_phone" id="father_work_phone" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mother Information-->
+        <div class="bg-[#E5ECFF] text-[#003049] rounded-[32px] mb-10 mx-32 py-[40px] px-[80px]">
+            <!-- dropdown and name -->
+            <p class="text-lg font-semibold text-left">Mother's Information</p><br>
+            <div class="grid grid-cols-3 gap-4">
+                <div class="flex items-center">
+                    <!-- Drop Down -->
+                    <div>
+                        <label for="mother_title" class="sr-only">Title</label>
+                        <select id="mother_title" name="mother_title" class="border border-gray-300 rounded-lg p-2 h-[38px] mt-4" required>
+                            <option disabled selected>Title</option>
+                            <option value="Ms.">Ms.</option>
+                            <option value="Mrs.">Mrs.</option>
+                        </select>
+                    </div>
+                    <!-- Name-->
+                    <div class="w-full mb-2">
+                        <label for="mother_name" class="block mb-1 text-sm">Mother Name<span style="color: red;">*</span></label>
+                        <input type="text" id="mother_name" name="mother_name" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    </div>
+                </div>
+                <!-- Age -->
+                <div class="mb-2">
+                    <label for="mother_age" class="block mb-1 text-sm">Age<span style="color: red;">*</span></label>
+                    <input type="number" name="mother_age" id="mother_age" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Occupation -->
+                <div class="mb-2">
+                    <label for="mother_occu" class="block mb-1 text-sm">Occupation<span style="color: red;">*</span></label>
+                    <input type="text" name="mother_occu" id="mother_occu" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Position -->
+                <div class="mb-2">
+                    <label for="mother_position" class="block mb-1 text-sm">Position<span style="color: red;">*</span></label>
+                    <input type="text" name="mother_position" id="mother_position" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Monthly income -->
+                <div class="mb-2">
+                    <label for="mother_monthly_income" class="block mb-1 text-sm">Monthly Income (THB)<span style="color: red;">*</span></label>
+                    <input type="number" name="mother_monthly_income" id="mother_monthly_income" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Yearly income -->
+                <div class="mb-2">
+                    <label for="mother_yearly_income" class="block mb-1 text-sm">Yearly Income (THB)<span style="color: red;">*</span></label>
+                    <input type="number" name="mother_yearly_income" id="mother_yearly_income" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Land -->
+                <div class="mb-2">
+                    <label for="mother_land" class="block mb-1 text-sm">Land Owned or Rent (Rai)<span style="color: red;">*</span></label>
+                    <input type="text" name="mother_land" id="mother_land" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Phone -->
+                <div class="mb-2">
+                    <label for="mother_phone" class="block mb-1 text-sm">Phone Number<span style="color: red;">*</span></label>
+                    <input type="number" name="mother_phone" id="mother_phone" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+            </div>
+
+            <!--Address-->
+            <br><p class="font-semibold text-left">Address</p><br>
+            <div class="grid grid-cols-3 gap-4">
+                <!--City-->
+                <div class="mb-2">
+                    <label for="city" class="block mb-1 text-sm">City/Town/Village<span style="color: red;">*</span></label>
+                    <input type="text" name="city" id="city" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!--House no and moo-->
+                <div class="flex">
+                    <!-- House No -->
+                    <div class="mb-2">
+                        <label for="hoseNo" class="block mb-1 text-sm">House Number<span style="color: red;">*</span></label>
+                        <input type="number" name="houseNo" id="houseNo" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    </div>
+                    <!-- Moo -->
+                    <div class="mb-2">
+                        <label for="moo" class="block mb-1 text-sm">Moo<span style="color: red;">*</span></label>
+                        <input type="number" name="moo" id="moo" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    </div>
+                </div>
+                <!-- Road -->
+                <div class="mb-2">
+                    <label for="road" class="block mb-1 text-sm">Road<span style="color: red;">*</span></label>
+                    <input type="text" name="road" id="road" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Subdistrict -->
+                <div class="mb-2">
+                    <label for="subdis" class="block mb-1 text-sm">Subdistrict<span style="color: red;">*</span></label>
+                    <input type="text" name="subdis" id="subdis" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- District -->
+                <div class="mb-2">
+                    <label for="district" class="block mb-1 text-sm">District<span style="color: red;">*</span></label>
+                    <input type="text" name="district" id="district" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Province -->
+                <div class="mb-2">
+                    <label for="province" class="block mb-1 text-sm">Province<span style="color: red;">*</span></label>
+                    <input type="text" name="province" id="province" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Postal Code -->
+                <div class="mb-2">
+                    <label for="postcode" class="block mb-1 text-sm">Postal Code<span style="color: red;">*</span></label>
+                    <input type="number" name="postcode" id="postcode" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Phone -->
+                <div class="mb-2">
+                    <label for="mother_phone" class="block mb-1 text-sm">Phone Number<span style="color: red;">*</span></label>
+                    <input type="number" name="mother_phone" id="mother_phone" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+            </div>
+
+            <!--Work Address-->
+            <br><p class="font-semibold text-left">Work Address</p><br>
+            <div class="grid grid-cols-3 gap-4">
+                <!--City-->
+                <div class="mb-2">
+                    <label for="city" class="block mb-1 text-sm">City/Town/Village<span style="color: red;">*</span></label>
+                    <input type="text" name="city" id="city" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!--House no and moo-->
+                <div class="flex">
+                    <!-- House No -->
+                    <div class="mb-2">
+                        <label for="hoseNo" class="block mb-1 text-sm">House Number<span style="color: red;">*</span></label>
+                        <input type="number" name="houseNo" id="houseNo" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    </div>
+                    <!-- Moo -->
+                    <div class="mb-2">
+                        <label for="moo" class="block mb-1 text-sm">Moo<span style="color: red;">*</span></label>
+                        <input type="number" name="moo" id="moo" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    </div>
+                </div>
+                <!-- Road -->
+                <div class="mb-2">
+                    <label for="road" class="block mb-1 text-sm">Road<span style="color: red;">*</span></label>
+                    <input type="text" name="road" id="road" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Subdistrict -->
+                <div class="mb-2">
+                    <label for="subdis" class="block mb-1 text-sm">Subdistrict<span style="color: red;">*</span></label>
+                    <input type="text" name="subdis" id="subdis" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- District -->
+                <div class="mb-2">
+                    <label for="district" class="block mb-1 text-sm">District<span style="color: red;">*</span></label>
+                    <input type="text" name="district" id="district" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Province -->
+                <div class="mb-2">
+                    <label for="province" class="block mb-1 text-sm">Province<span style="color: red;">*</span></label>
+                    <input type="text" name="province" id="province" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Postal Code -->
+                <div class="mb-2">
+                    <label for="postcode" class="block mb-1 text-sm">Postal Code<span style="color: red;">*</span></label>
+                    <input type="number" name="postcode" id="postcode" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Phone -->
+                <div class="mb-2">
+                    <label for="mother_work_phone" class="block mb-1 text-sm">Work Phone Number<span style="color: red;">*</span></label>
+                    <input type="text" name="mother_work_phone" id="mother_work_phone" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- Guardian's Information -->
+        <div class="bg-[#E5ECFF] text-[#003049] rounded-[32px] mb-10 mx-32 py-[40px] px-[80px]">
+            <!-- dropdown and name -->
+            <p class="text-lg font-semibold text-left">Guardian's Information (in case not father or mother)</p><br>
+            <div class="grid grid-cols-3 gap-4">
+                <div class="flex items-center">
+                    <!-- Drop Down -->
+                    <div>
+                        <label for="guard_title" class="sr-only">Title</label>
+                        <select id="guard_title" name="guard_title" class="border border-gray-300 rounded-lg p-2 h-[38px] mt-4">
+                            <option disabled selected>Title</option>
+                            <option value="Mr.">Mr.</option>
+                            <option value="Ms.">Ms.</option>
+                            <option value="Mrs.">Mrs.</option>
+                        </select>
+                    </div>
+                    <!-- Name-->
+                    <div class="w-full mb-2">
+                        <label for="guard_name" class="block mb-1 text-sm">Guardian Name<span style="color: red;">*</span></label>
+                        <input type="text" id="guard_name" name="guard_name" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    </div>
+                </div>
+                <!-- Relationship -->
+                <div class="mb-2">
+                    <label for="relationship" class="block mb-1 text-sm">Relationship with Student<span style="color: red;">*</span></label>
+                    <input type="text" name="relationship" id="relationship" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Monthly Support -->
+                <div class="mb-2">
+                    <label for="monthly_support" class="block mb-1 text-sm">Monthly Support (THB)<span style="color: red;">*</span></label>
+                    <input type="number" name="monthly_support" id="monthly_support" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Occupation -->
+                <div class="mb-2">
+                    <label for="guard_occu" class="block mb-1 text-sm">Occupation<span style="color: red;">*</span></label>
+                    <input type="text" name="guard_occu" id="guard_occu" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Position -->
+                <div class="mb-2">
+                    <label for="guard_position" class="block mb-1 text-sm">Position<span style="color: red;">*</span></label>
+                    <input type="text" name="guard_position" id="guard_position" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Monthly income -->
+                <div class="mb-2">
+                    <label for="guard_monthly_income" class="block mb-1 text-sm">Monthly Income (THB)<span style="color: red;">*</span></label>
+                    <input type="number" name="guard_monthly_income" id="guard_monthly_income" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Yearly income -->
+                <div class="mb-2">
+                    <label for="guard_yearly_income" class="block mb-1 text-sm">Yearly Income (THB)<span style="color: red;">*</span></label>
+                    <input type="number" name="guard_yearly_income" id="guard_yearly_income" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Land -->
+                <div class="mb-2">
+                    <label for="guard_land" class="block mb-1 text-sm">Land Owned or Rent (Rai)</label>
+                    <input type="text" name="guard_land" id="guard_land" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Phone -->
+                <div class="mb-2">
+                    <label for="guard_phone" class="block mb-1 text-sm">Phone Number</label>
+                    <input type="number" name="guard_phone" id="guard_phone" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+            </div>
+
+            <!--Address-->
+            <br><p class="font-semibold text-left">Address</p><br>
+            <div class="grid grid-cols-3 gap-4">
+                <!--City-->
+                <div class="mb-2">
+                    <label for="city" class="block mb-1 text-sm">City/Town/Village<span style="color: red;">*</span></label>
+                    <input type="text" name="city" id="city" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!--House no and moo-->
+                <div class="flex">
+                    <!-- House No -->
+                    <div class="mb-2">
+                        <label for="hoseNo" class="block mb-1 text-sm">House Number<span style="color: red;">*</span></label>
+                        <input type="number" name="houseNo" id="houseNo" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    </div>
+                    <!-- Moo -->
+                    <div class="mb-2">
+                        <label for="moo" class="block mb-1 text-sm">Moo<span style="color: red;">*</span></label>
+                        <input type="number" name="moo" id="moo" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    </div>
+                </div>
+                <!-- Road -->
+                <div class="mb-2">
+                    <label for="road" class="block mb-1 text-sm">Road<span style="color: red;">*</span></label>
+                    <input type="text" name="road" id="road" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Subdistrict -->
+                <div class="mb-2">
+                    <label for="subdis" class="block mb-1 text-sm">Subdistrict<span style="color: red;">*</span></label>
+                    <input type="text" name="subdis" id="subdis" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- District -->
+                <div class="mb-2">
+                    <label for="district" class="block mb-1 text-sm">District<span style="color: red;">*</span></label>
+                    <input type="text" name="district" id="district" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Province -->
+                <div class="mb-2">
+                    <label for="province" class="block mb-1 text-sm">Province<span style="color: red;">*</span></label>
+                    <input type="text" name="province" id="province" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Postal Code -->
+                <div class="mb-2">
+                    <label for="postcode" class="block mb-1 text-sm">Postal Code<span style="color: red;">*</span></label>
+                    <input type="number" name="postcode" id="postcode" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Phone -->
+                <div class="mb-2">
+                    <label for="guard_phone" class="block mb-1 text-sm">Phone Number<span style="color: red;">*</span></label>
+                    <input type="text" name="guard_phone" id="guard_phone" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+            </div>
+
+            <!--Work Address-->
+            <br><p class="font-semibold text-left">Work Address</p><br>
+            <div class="grid grid-cols-3 gap-4">
+                <!--City-->
+                <div class="mb-2">
+                    <label for="city" class="block mb-1 text-sm">City/Town/Village<span style="color: red;">*</span></label>
+                    <input type="text" name="city" id="city" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!--House no and moo-->
+                <div class="flex">
+                    <!-- House No -->
+                    <div class="mb-2">
+                        <label for="hoseNo" class="block mb-1 text-sm">House Number<span style="color: red;">*</span></label>
+                        <input type="number" name="houseNo" id="houseNo" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    </div>
+                    <!-- Moo -->
+                    <div class="mb-2">
+                        <label for="moo" class="block mb-1 text-sm">Moo<span style="color: red;">*</span></label>
+                        <input type="number" name="moo" id="moo" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                    </div>
+                </div>
+                <!-- Road -->
+                <div class="mb-2">
+                    <label for="road" class="block mb-1 text-sm">Road<span style="color: red;">*</span></label>
+                    <input type="text" name="road" id="road" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Subdistrict -->
+                <div class="mb-2">
+                    <label for="subdis" class="block mb-1 text-sm">Subdistrict<span style="color: red;">*</span></label>
+                    <input type="text" name="subdis" id="subdis" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- District -->
+                <div class="mb-2">
+                    <label for="district" class="block mb-1 text-sm">District<span style="color: red;">*</span></label>
+                    <input type="text" name="district" id="district" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Province -->
+                <div class="mb-2">
+                    <label for="province" class="block mb-1 text-sm">Province<span style="color: red;">*</span></label>
+                    <input type="text" name="province" id="province" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Postal Code -->
+                <div class="mb-2">
+                    <label for="postcode" class="block mb-1 text-sm">Postal Code<span style="color: red;">*</span></label>
+                    <input type="number" name="postcode" id="postcode" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- Phone -->
+                <div class="mb-2">
+                    <label for="guard_work_phone" class="block mb-1 text-sm">Work Phone Number<span style="color: red;">*</span></label>
+                    <input type="number" name="guard_work_phone" id="guard_work_phone" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- Siblings Information -->
+        <div class="bg-[#E5ECFF] text-[#003049] rounded-[32px] mb-10 mx-32 py-[40px] px-[80px]">
+            <h1 class="text-lg font-semibold text-left">Siblings Information</h1><br>
+            <table class="w-full border border-collapse border-gray-300 table-auto">
+                <thead class="text-sm">
+                <tr class="bg-[#003049] text-white">
+                    <th class="p-2 border border-gray-300">Name</th>
+                    <th class="p-2 border border-gray-300">Birth Date</th>
+                    <th class="p-2 border border-gray-300">Age</th>
+                    <th class="p-2 border border-gray-300">Education</th>
+                    <th class="p-2 border border-gray-300">Occupation</th>
+                    <th class="p-2 border border-gray-300">Monthly Income</th>
+                    <th class="p-2 border border-gray-300"></th>
+                </tr>
+                </thead>
+                <tbody id="siblings-wrapper">
+                <!-- Row for sibling 1 -->
+                <tr class="text-sm sibling-row">
+                    <td class="p-2 border border-gray-300">
+                        <input type="text" name="siblingName1" class="w-full p-1 border border-gray-300 rounded" placeholder="Name">
+                    </td>
+                    <td class="p-2 border border-gray-300">
+                        <input type="text" name="siblingBirthDate1" class="w-full p-1 border border-gray-300 rounded" placeholder="DD/MM/YYYY">
+                    </td>
+                    <td class="p-2 border border-gray-300">
+                        <input type="number" name="siblingAge1" class="w-full p-1 border border-gray-300 rounded" placeholder="Age">
+                    </td>
+                    <td class="p-2 border border-gray-300">
+                        <input type="text" name="siblingEducation1" class="w-full p-1 border border-gray-300 rounded" placeholder="Education">
+                    </td>
+                    <td class="p-2 border border-gray-300">
+                        <input type="text" name="siblingOccupation1" class="w-full p-1 border border-gray-300 rounded" placeholder="Occupation">
+                    </td>
+                    <td class="p-2 border border-gray-300">
+                        <input type="number" name="siblingIncome1" class="w-full p-1 border border-gray-300 rounded" placeholder="Income">
+                    </td>
+                    <td class="p-2 text-center border border-gray-300">
+                        <button type="button" class="delete-sibling text-white text-xs font-semibold bg-[#a22121] py-2 px-4 rounded-lg">Delete</button>
+                    </td>
+                </tr>
+                <!-- Hidden Template Row (For cloning) -->
+                <tr id="sibling-template" style="display: none;" class="text-sm sibling-row">
+                    <td class="p-2 border border-gray-300">
+                        <input type="text" name="siblingName[]" class="w-full p-1 border border-gray-300 rounded" placeholder="Name" required>
+                    </td>
+                    <td class="p-2 border border-gray-300">
+                        <input type="text" name="siblingBirthDate[]" class="w-full p-1 border border-gray-300 rounded" placeholder="DD/MM/YYYY" required>
+                    </td>
+                    <td class="p-2 border border-gray-300">
+                        <input type="number" name="siblingAge[]" class="w-full p-1 border border-gray-300 rounded" placeholder="Age" required>
+                    </td>
+                    <td class="p-2 border border-gray-300">
+                        <input type="text" name="siblingEducation[]" class="w-full p-1 border border-gray-300 rounded" placeholder="Education" required>
+                    </td>
+                    <td class="p-2 border border-gray-300">
+                        <input type="text" name="siblingOccupation[]" class="w-full p-1 border border-gray-300 rounded" placeholder="Occupation" required>
+                    </td>
+                    <td class="p-2 border border-gray-300">
+                        <input type="number" name="siblingIncome[]" class="w-full p-1 border border-gray-300 rounded" placeholder="Income" required>
+                    </td>
+                    <td class="p-2 text-center border border-gray-300">
+                        <button type="button" class="delete-sibling text-white text-xs font-semibold bg-[#a22121] py-2 px-4 rounded-lg">Delete</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <!-- Button to add sibling -->
+            <div class="py-5">
+                <p class="pt-2 mb-5 text-sm">Please click this button if you want to add another sibling
+                    <button type="button" id="add-sibling-btn" class="text-white text-xs font-semibold bg-[#003049] mx-5 my-auto py-2 px-4 items-center rounded-lg">Add</button>
+                </p>
+            </div>
+
+            <!-- Family Financial Information -->
+            <p class="text-lg font-semibold text-left">Family Financial Information</p>
+            <div class="grid grid-cols-3 gap-4 pt-5">
+                <!--total income-->
+                <div class="mb-2">
+                    <label for="fam_income" class="block mb-1 text-sm">Total Family Income (THB)<span style="color: red;">*</span></label>
+                    <input type="number" name="fam_income" id="fam_income" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- total expenses -->
+                <div class="mb-2">
+                    <label for="fam_expenses" class="block mb-1 text-sm">Total Family Expenses (THB)<span style="color: red;">*</span></label>
+                    <input type="number" name="fam_expenses" id="fam_expenses" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+                <!-- total debts -->
+                <div class="mb-2">
+                    <label for="fam_debts" class="block mb-1 text-sm">Total Monthly Debt Payment (THB)<span style="color: red;">*</span></label>
+                    <input type="number" name="fam_debts" id="fam_debts" class="w-full p-2 text-sm border border-gray-300 rounded-lg" required>
+                </div>
+            </div>
+
+            <!-- Required Checkbox -->
+            <div class="flex items-center mt-4">
+                <input type="checkbox" id="agree" name="agree" class="w-4 h-4 mr-4" required>
+                <label for="agree" class="text-sm">I hereby certify that all the provided information is true. If any of the information is found to be false,<br> I agree to return any awarded scholarship and accept the university's disciplinary actions.</label>
+            </div>
+        </div>
+
+        <!-- MFU Scholarship Essay -->
+        <div class="bg-[#E5ECFF] text-[#003049] rounded-[32px] mb-10 mx-32 py-[40px] px-[80px]">
+            <p class="text-lg font-semibold text-left">MFU Scholarship Essay</p><br>
+            <!-- Message Field -->
+            <div class="mb-2">
+                <label for="essay" class="block mb-1 text-sm">Reason to apply for the MFU Scholarship (Please describe reasons to apply for the scholarship in 500 words.)<span style="color: red;">*</span></label>
+                <textarea id="essay" name="essay" class="w-full p-2 text-sm border border-gray-300 rounded-lg h-72" rows="4" placeholder="Tell us about the reason why you want to apply" required></textarea>
+            </div>
+            <p class="text-sm text-[#be2626]">
+                Note: Students are required to write a description of their family status, living conditions, and needs, covering the following topics:<br>
+                1. Family life/family status problems<br>
+                2. Student/parent health problems<br>
+                3. Family financial and income problems, and other reasons
+            </p>
+        </div>
+
+        <!-- Photos of applicants house -->
+        <div class="bg-[#E5ECFF] text-[#003049] rounded-[32px] mb-10 mx-32 py-[40px] px-[80px]">
+            <p class="text-lg font-semibold text-left">Photos of Applicant's House</p><br>
+            <!-- Inside house -->
+            <div>
+                <p class="mt-5 mb-2 text-sm text-left">Photos of all inside the applicant's house (color)<span style="color: red;">*</span></p>
+                <!-- inside house 1-->
+                <div class="flex items-center mt-5 space-x-4">
+                    <label for="inside_house1" class="border border-gray-300 h-[37px] w-[110px] justify-center py-2 px-4 rounded-lg shadow-md text-xs bg-white text-[#003049] cursor-pointer flex items-center">
+                        <i class="mr-2 fa-solid fa-upload"></i>
+                        Add File
+                    </label>
+                    <input type="file" id="inside_house1" name="inside_house1" class="hidden" onchange="this.nextElementSibling.classList.remove('hidden'); this.nextElementSibling.innerText = this.files[0].name" required>
+                    <span class="hidden text-sm text-gray-600">No file selected</span>
+                </div>
+                <!-- Inside house 2 -->
+                <div class="flex items-center mt-5 space-x-4">
+                    <label for="inside_house2" class="border border-gray-300 h-[37px] w-[110px] justify-center py-2 px-4 rounded-lg shadow-md text-xs bg-white text-[#003049] cursor-pointer flex items-center">
+                        <i class="mr-2 fa-solid fa-upload"></i>
+                        Add File
+                    </label>
+                    <input type="file" id="inside_house2" name="inside_house2" class="hidden" onchange="this.nextElementSibling.classList.remove('hidden'); this.nextElementSibling.innerText = this.files[0].name" required>
+                    <span class="hidden text-sm text-gray-600">No file selected</span>
+                </div>
+            </div>
+            <!-- Outside House -->
+            <div>
+                <p class="pb-5 mt-10 text-sm text-left">Photos of all outside the applicant's house (color)<span style="color: red;">*</span></p>
+                <!-- Outside house 1 -->
+                <div class="flex items-center space-x-4">
+                    <label for="outside_house1" class="border border-gray-300 h-[37px] w-[110px] justify-center py-2 px-4 rounded-lg shadow-md text-xs bg-white text-[#003049] cursor-pointer flex items-center">
+                        <i class="mr-2 fa-solid fa-upload"></i>
+                        Add File
+                    </label>
+                    <input type="file" id="outside_house1" name="outside_house1" class="hidden" onchange="this.nextElementSibling.classList.remove('hidden'); this.nextElementSibling.innerText = this.files[0].name" required>
+                    <span class="hidden text-sm text-gray-600">No file selected</span>
+                </div>
+                <!-- Outside house 2 -->
+                <div class="flex items-center mt-5 space-x-4">
+                    <label for="outside_house2" class="border border-gray-300 h-[37px] w-[110px] justify-center py-2 px-4 rounded-lg shadow-md text-xs bg-white text-[#003049] cursor-pointer flex items-center">
+                        <i class="mr-2 fa-solid fa-upload"></i>
+                        Add File
+                    </label>
+                    <input type="file" id="outside_house2" name="outside_house2" class="hidden" onchange="this.nextElementSibling.classList.remove('hidden'); this.nextElementSibling.innerText = this.files[0].name" required>
+                    <span class="hidden text-sm text-gray-600">No file selected</span>
+                </div>
+            </div>
+            <p class="text-left text-sm text-[#be2626] mt-10">Note : If falsified information is provided, the Applicant will be disqualified for future scholarship selections.</p>
+        </div>
+
+        <!-- Family Income Certification -->
+        <div class="bg-[#E5ECFF] text-[#003049] rounded-[32px] mb-10 mx-32 py-[40px] px-[80px]">
+            <p class="text-lg font-semibold text-left">Family Income Certification for Scholarship Application</p><br>
+            <!-- Download Sample File -->
+            <div>
+                <p class="pb-3 mt-3 text-sm text-left">Download Sample File</p>
+                <div class="flex items-center space-x-4">
+                    <div>
+                        <!-- will add sample file later -->
+                        <a href="../pdf/Parttime Application of MR. THWIN KHANT NYAR ZAW .pdf" download class="border border-gray-300 h-[37px] py-2 px-4 rounded-lg shadow-md text-xs bg-white text-[#003049] cursor-pointer flex items-center justify-center">
+                            <i class="mr-2 fa-solid fa-download"></i>
+                            Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Upload File -->
+            <p class="mt-5 mb-3 text-sm text-left">Upload Your File<span style="color: red;">*</span></p>
+            <div class="flex items-center space-x-4">
+                <label for="income_cer" class="border border-gray-300 h-[37px] w-[110px] justify-center py-2 px-4 rounded-lg shadow-md text-xs bg-white text-[#003049] cursor-pointer flex items-center">
+                    <i class="mr-2 fa-solid fa-upload"></i>
+                    Add File
+                </label>
+                <input type="file" id="income_cer" name="income_cer" class="hidden" onchange="this.nextElementSibling.classList.remove('hidden'); this.nextElementSibling.innerText = this.files[0].name" required>
+                <span class="hidden text-sm text-gray-600">No file selected</span>
+            </div>
+        </div>
+
+        <!-- Advisor Recommendation Letter -->
+        <div class="bg-[#E5ECFF] text-[#003049] rounded-[32px] mb-10 mx-32 py-[40px] px-[80px]">
+            <p class="text-lg font-semibold text-left">Advisor Recommendation Letter</p><br>
+            <!-- Download Sample File -->
+            <div>
+                <p class="pb-3 mt-3 text-sm text-left">Download Sample File</p>
+                <div class="flex items-center space-x-4">
+                    <div>
+                        <!-- will add sample file later -->
+                        <a href="/path/to/your/file/sample-file.pdf" download class="border border-gray-300 h-[37px] py-2 px-4 rounded-lg shadow-md text-xs bg-white text-[#003049] cursor-pointer flex items-center justify-center">
+                            <i class="mr-2 fa-solid fa-download"></i>
+                            Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Upload File -->
+            <p class="mt-5 mb-3 text-sm text-left">Upload Your File<span style="color: red;">*</span></p>
+            <div class="flex items-center space-x-4">
+                <label for="advi_rec" class="border border-gray-300 h-[37px] w-[110px] justify-center py-2 px-4 rounded-lg shadow-md text-xs bg-white text-[#003049] cursor-pointer flex items-center">
+                    <i class="mr-2 fa-solid fa-upload"></i>
+                    Add File
+                </label>
+                <input type="file" id="advi_rec" name="advi_rec" class="hidden" onchange="this.nextElementSibling.classList.remove('hidden'); this.nextElementSibling.innerText = this.files[0].name" required>
+                <span class="hidden text-sm text-gray-600">No file selected</span>
+            </div>
+        </div>
+
+        <!-- Family status certification -->
+        <div class="bg-[#E5ECFF] text-[#003049] rounded-[32px] mb-10 mx-32 py-[40px] px-[80px]">
+            <p class="text-lg font-semibold text-left">Applicant's Family Status Certification for Scholarship</p><br>
+            <!-- Download Sample File -->
+            <div>
+                <p class="pb-3 mt-3 text-sm text-left">Download Sample File</p>
+                <div class="flex items-center space-x-4">
+                    <div>
+                        <!-- will add sample file later -->
+                        <a href="/path/to/your/file/sample-file.pdf" download class="border border-gray-300 h-[37px] py-2 px-4 rounded-lg shadow-md text-xs bg-white text-[#003049] cursor-pointer flex items-center justify-center">
+                            <i class="mr-2 fa-solid fa-download"></i>
+                            Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Upload File -->
+            <p class="mt-5 mb-3 text-sm text-left">Upload Your File<span style="color: red;">*</span></p>
+            <div class="flex items-center space-x-4">
+                <label for="status_cer" class="border border-gray-300 h-[37px] w-[110px] justify-center py-2 px-4 rounded-lg shadow-md text-xs bg-white text-[#003049] cursor-pointer flex items-center">
+                    <i class="mr-2 fa-solid fa-upload"></i>
+                    Add File
+                </label>
+                <input type="file" id="status_cer" name="status_cer" class="hidden" onchange="this.nextElementSibling.classList.remove('hidden'); this.nextElementSibling.innerText = this.files[0].name" required>
+                <span class="hidden text-sm text-gray-600">No file selected</span>
+            </div>
+        </div>
+
+        <!-- Guardianship Certification -->
+        <div class="bg-[#E5ECFF] text-[#003049] rounded-[32px] mb-10 mx-32 py-[40px] px-[80px]">
+            <p class="text-lg font-semibold text-left">Certification of Non-Parental Guardianship</p>
+            <p class="text-left lest-sm">(In case the father/mother has completely ceased to provide support)</p><br>
+            <!-- Download Sample File -->
+            <div>
+                <p class="pb-3 mt-3 text-sm text-left">Download Sample File</p>
+                <div class="flex items-center space-x-4">
+                    <div>
+                        <!-- will add sample file later -->
+                        <a href="/path/to/your/file/sample-file.pdf" download class="border border-gray-300 h-[37px] py-2 px-4 rounded-lg shadow-md text-xs bg-white text-[#003049] cursor-pointer flex items-center justify-center">
+                            <i class="mr-2 fa-solid fa-download"></i>
+                            Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Upload File -->
+            <p class="mt-5 mb-3 text-sm text-left">Upload Your File<span style="color: red;">*</span></p>
+            <div class="flex items-center space-x-4">
+                <label for="guardian_cer" class="border border-gray-300 h-[37px] w-[110px] justify-center py-2 px-4 rounded-lg shadow-md text-xs bg-white text-[#003049] cursor-pointer flex items-center">
+                    <i class="mr-3 fa-solid fa-upload"></i>
+                    Add File
+                </label>
+                <input type="file" id="guardian_cer" name="guardian_cer" class="hidden" onchange="this.nextElementSibling.classList.remove('hidden'); this.nextElementSibling.innerText = this.files[0].name" required>
+                <span class="hidden text-sm text-gray-600">No file selected</span>
+            </div>
+        </div>
+
+        <!-- Submit Signature -->
+        <div class="bg-[#E5ECFF] text-[#003049] rounded-[32px] mb-10 mx-32 py-[40px] px-[80px]">
+            <p class="text-left lest-sm">By submitting this application, I confirm that I have read, understood,
+                and agree to abide by all the rules and terms outlined for this scholarship. I acknowledge
+                that any false information or non-compliance may result in the rejection of my application
+                or termination of the scholarship if awarded.</p><br>
+            <!-- Signature -->
+            <div class="mb-2">
+                <label for="signature" class="block mb-1 text-sm">Your Signature<span style="color: red;">*</span></label>
+                <input type="text" name="signature" id="signature" class="text-sm border border-gray-300 rounded-lg w-[32%] p-2" placeholder="Please write down your name" required>
+            </div>
+            <!-- Date -->
+            <div class="mb-2">
+                <label for="sign_date" class="block mb-1 text-sm">Date<span style="color: red;">*</span></label>
+                <input type="text" name="sign_date" id="sign_date" class="text-sm border border-gray-300 rounded-lg w-[32%] p-2" placeholder="DD/MM/YYYY" required>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="flex justify-center mt-10">
+            <button onclick="openModal()" class="bg-[#003049] text-white font-semibold px-8 py-2 rounded-xl mb-8">
+                Submit
+            </button>
+        </div>
+
+        <!-- Confirmation Modal (Hidden initially) -->
+        <div id="confirmationModal" class="fixed inset-0 flex items-center justify-center hidden bg-gray-900 bg-opacity-50">
+            <div class="w-full max-w-sm p-6 bg-white rounded-lg shadow-lg">
+                <h2 class="mb-4 text-lg font-semibold">Are you sure you want to submit the application?</h2>
+                <div class="flex justify-end gap-4">
+                    <button onclick="confirmSubmit()" class="bg-[#003049] text-white font-semibold px-4 py-2 rounded-lg">
+                        Submit
+                    </button>
+                    <button onclick="closeModal()" class="px-4 py-2 font-semibold text-gray-700 bg-gray-300 rounded-lg">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</main>
+
+<!--Bottom-->
+<footer class="w-full py-2 bg-[#003049]">
+    <div class="container flex items-center justify-between p-3 mx-auto px-14">
+        <!--Logo and Text-->
+        <div class="flex">
+            <!--Logo-->
+            <div class="mr-5">
+                <img src="../access/logo-mfu-v2.png" alt="logo" class="w-10 h-auto">
+            </div>
+            <!--Text-->
+            <div class="mr-4">
+                <h1 class="text-2xl font-semibold text-white">Scholarship System</h1>
+                <h2 class="font-semibold text-white text-md">Mae Fah Luang University</h2>
+            </div>
+        </div>
+        <!--Contact-->
+        <div class="text-xs text-right text-slate-400">
+            <h1>Contact Us</h1>
+            <p>Scholarship System, Mae Fah Luang University<br>
+                Integrated Academic Building C1-108<br>
+                333 Moo 1, Tha Sut, Mueang, Chiang Rai 57100<br>
+                Tel: 0-5391-7141, 0-5391-6532-34<br>
+                Email: imu@mfu.ac.th
+            </p>
+        </div>
+    </div>
+</footer>
+
+<!-- Log out -->
+<script>
+    // Toggle overlay visibility
+    const dropdownButton = document.getElementById('dropdownButton');
+    const overlay = document.getElementById('overlay');
+
+    dropdownButton.addEventListener('click', () => {
+        overlay.classList.toggle('hidden');
+    });
+
+    // Example logout function
+    function logout() {
+        alert('You have logged out.');
+        window.location.href="student_login.html";
+    }
+
+    // Close overlay if clicking outside of it
+    window.addEventListener('click', function (e) {
+        if (!dropdownButton.contains(e.target) && !overlay.contains(e.target)) {
+            overlay.classList.add('hidden');
+        }
+    });
+
+    // File Upload Display Handler
+    document.querySelectorAll('input[type="file"]').forEach(input => {
+        input.addEventListener('change', function () {
+            const fileName = this.files[0].name;
+            this.nextElementSibling.innerText = fileName;
+            this.nextElementSibling.classList.remove('hidden');
+        });
+    });
+
+
+    // Add event listener to the delete button in the initial group if it exists
+    document.querySelectorAll('.delete-scholarship-btn').forEach(deleteBtn => {
+        deleteBtn.addEventListener('click', function () {
+            this.closest('.scholarship-group').remove();
+        });
+    });
+
+    // Checkbox validation before form submission
+    function validateCheckbox() {
+        const checkbox = document.getElementById('agree');
+        if (!checkbox.checked) {
+            alert('You must agree to the terms before submitting.');
+            return false;
+        }
+        return true;
+    }
+
+    // Marital Status trigger for text input
+    function toggleInput(inputId) {
+        let inputs = document.querySelectorAll('.marital-status-box input[type="text"]');
+        inputs.forEach(input => {
+            input.style.display = 'none';
+            input.disabled = true;
+        });
+        if (inputId) {
+            let selectedInput = document.getElementById(inputId);
+            selectedInput.style.display = 'inline-block';
+            selectedInput.disabled = false;
+        }
+    }
+
+    // Initialize flatpickr for date picker
+    flatpickr("#stdbirthdate", {
+        dateFormat: "d/m/Y"
+    });
+
+    flatpickr("#siblingBirthDate1", {
+        dateFormat: "d/m/Y"
+    });
+
+    flatpickr("#sign_date", {
+        dateFormat: "d/m/Y"
+    });
+
+    // Get references to the radio buttons and scholarship fields
+    const receivedYes = document.getElementById('receivedYes');
+    const receivedNo = document.getElementById('receivedNo');
+    const scholarshipsWrapper = document.getElementById('scholarships-wrapper');
+    const scholarshipInputs = scholarshipsWrapper.querySelectorAll('input');
+
+    // Add event listeners to the radio buttons
+    receivedYes.addEventListener('change', toggleScholarshipFields);
+    receivedNo.addEventListener('change', toggleScholarshipFields);
+
+    // Function to toggle the scholarship fields
+    function toggleScholarshipFields() {
+        if (receivedYes.checked) {
+            // Show the scholarship fields if "Yes" is selected
+            scholarshipsWrapper.classList.remove('hidden');
+            scholarshipInputs.forEach(input => input.disabled = false);
+        } else if (receivedNo.checked) {
+            // Hide the scholarship fields if "No" is selected
+            scholarshipsWrapper.classList.add('hidden');
+            scholarshipInputs.forEach(input => input.disabled = true);
+        }
+    }
+
+    // Check initial state of radio buttons on page load
+    window.addEventListener('DOMContentLoaded', function() {
+        if (receivedNo.checked) {
+            scholarshipsWrapper.classList.add('hidden');
+            scholarshipInputs.forEach(input => input.disabled = true);
+        }
+    });
+
+    // Add event listener to the delete button in the initial group
+    document.querySelectorAll('.delete-scholarship-btn').forEach(deleteBtn => {
+        deleteBtn.addEventListener('click', function () {
+            this.closest('.scholarship-group').remove();
+        });
+    });
+
+</script>
+
+<!--Add new Scholarship Entry-->
+<script>
+    document.getElementById('add-scholarship-btn').addEventListener('click', function () {
+        // Get the hidden scholarship template
+        const template = document.getElementById('scholarship-template');
+
+        // Clone the template and remove the 'hidden' class
+        const newGroup = template.cloneNode(true);
+        newGroup.classList.remove('hidden');
+
+        // Clear the input values in the cloned group
+        newGroup.querySelectorAll('input').forEach(input => input.value = '');
+
+        // Add event listener to the delete button in the new group
+        newGroup.querySelector('.delete-scholarship-btn').addEventListener('click', function () {
+            newGroup.remove();
+        });
+
+        // Append the new group to the scholarship wrapper
+        document.getElementById('scholarships-wrapper').appendChild(newGroup);
+    });
+
+    // Add delete functionality to the initial group
+    document.querySelectorAll('.delete-scholarship-btn').forEach(deleteBtn => {
+        deleteBtn.addEventListener('click', function () {
+            this.closest('.scholarship-group').remove();
+        });
+    });
+</script>
+
+<!--Add new Loan Entry-->
+<script>
+    document.getElementById('add-SLF-btn').addEventListener('click', function () {
+        // Get the hidden loan template
+        const template = document.getElementById('loan-template');
+
+        // Clone the template and remove the 'hidden' class
+        const newLoan = template.cloneNode(true);
+        newLoan.classList.remove('hidden');
+
+        // Add event listener to the delete button in the new loan group
+        newLoan.querySelector('.delete-loan-btn').addEventListener('click', function () {
+            newLoan.remove();
+        });
+
+        // Append the new loan group to the loans wrapper
+        document.getElementById('loans-wrapper').appendChild(newLoan);
+    });
+
+    // Add delete functionality to the initial loan group if it exists
+    document.querySelectorAll('.delete-loan-btn').forEach(deleteBtn => {
+        deleteBtn.addEventListener('click', function () {
+            this.closest('.loan-group').remove();
+        });
+    });
+</script>
+
+<!-- Add new sibling row-->
+<script>
+    document.getElementById('add-sibling-btn').addEventListener('click', function () {
+        const template = document.getElementById('sibling-template');
+        const newSiblingRow = template.cloneNode(true);
+        newSiblingRow.style.display = '';
+
+        // Add event listener to the delete button in the new row
+        newSiblingRow.querySelector('.delete-sibling').addEventListener('click', function () {
+            newSiblingRow.remove();
+        });
+
+        // Append the new row to the siblings wrapper (table body)
+        document.getElementById('siblings-wrapper').appendChild(newSiblingRow);
+    });
+
+    // Delete existing sibling rows
+    document.querySelectorAll('.delete-sibling').forEach(button => {
+        button.addEventListener('click', function () {
+            this.closest('tr').remove();
+        });
+    });
+</script>
+
+<!--Get references to elements-->
+<script>
+    // Function to open the modal
+    function openModal() {
+        document.getElementById('confirmationModal').classList.remove('hidden');
+    }
+
+    // Function to close the modal
+    function closeModal() {
+        document.getElementById('confirmationModal').classList.add('hidden');
+    }
+
+    // Function to submit the form when "submit" is clicked in the modal
+    function confirmSubmit() {
+        closeModal();
+        console.log('Form Submitted');
+    }
+</script>
+
+<script>
+    //window.onbeforeunload = () => true;
+</script>
+
+<script>
+    document.getElementById("backButton").addEventListener("click", function() {
+        window.history.back();
+    });
+</script>
+
+</body>
+</html>
