@@ -59,7 +59,7 @@ public class FamilyStatus {
 	
 	
 	public enum FamilyStatusOption {
-		marriedAndLiveToghther, marriedAndLiveSeparate, divorcedOrSeparete, fatherPassedAway, motherPassedAway,
+		marriedAndLiveTogether, marriedAndLiveSeparate, divorcedOrSeparate, fatherPassedAway, motherPassedAway,
 		bothParentDoNotSupport, others,
 	}
 	

@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scholarship Application PDF</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.5;
+            margin: 20px;
+            padding: 20px;
+            background-color: #ffffff;
+            color: #000000;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        .field-group {
+            margin-bottom: 15px;
+        }
+        .label {
+            font-weight: bold;
+            display: inline-block;
+            width: 200px;
+        }
+        .value {
+            display: inline-block;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+<!-- Title -->
+<h1 style="text-align: center; font-size: 24px; margin-bottom: 20px;">Mae Fah Luang University Scholarship Application</h1>
+
+<!-- Student Basic Information Section -->
+<div class="section">
+    <div class="section-title">Student Basic Information</div>
+    <div class="field-group">
+        <img src="{{student_photo_url}}" alt="Student Photo" style="max-width: 100%; height: auto;">
+    </div>
+    <div class="field-group">
+        <span class="label">Student Name:</span>
+        <span class="value">{{studentName}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Date of Birth:</span>
+        <span class="value">{{dateOfBirth}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Age:</span>
+        <span class="value">{{age}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Student ID:</span>
+        <span class="value">{{studentId}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Year:</span>
+        <span class="value">{{year}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Major:</span>
+        <span class="value">{{major}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">School of:</span>
+        <span class="value">{{school}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">GPAX:</span>
+        <span class="value">{{gpax}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Phone Number:</span>
+        <span class="value">{{PhoneNum}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Email:</span>
+        <span class="value">{{email}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Advisor Name:</span>
+        <span class="value">{{advisorName}}</span>
+    </div>
+</div>
+
+<!-- Permanent Address Section -->
+<div class="section">
+    <div class="section-title">Permanent Address</div>
+    <div class="field-group">
+        <span class="label">City/Town/Village:</span>
+        <span class="value">{{city}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">House Number:</span>
+        <span class="value">{{houseNumber}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Moo:</span>
+        <span class="value">{{moo}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Road:</span>
+        <span class="value">{{road}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Subdistrict:</span>
+        <span class="value">{{subdistrict}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">District:</span>
+        <span class="value">{{district}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Province:</span>
+        <span class="value">{{province}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Postal Code:</span>
+        <span class="value">{{postalCode}}</span>
+    </div>
+</div>
+
+<!-- Current Address Section -->
+<div class="section">
+    <div class="section-title">Current Address</div>
+    <div class="field-group">
+        <span class="label">City/Town/Village:</span>
+        <span class="value">{{city}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">House Number:</span>
+        <span class="value">{{houseNumber}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Moo:</span>
+        <span class="value">{{moo}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Road:</span>
+        <span class="value">{{road}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Subdistrict:</span>
+        <span class="value">{{subdistrict}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">District:</span>
+        <span class="value">{{district}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Province:</span>
+        <span class="value">{{province}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Postal Code:</span>
+        <span class="value">{{postalCode}}</span>
+    </div>
+</div>
+
+<!-- Scholarship History Section -->
+<div class="section">
+    <div class="section-title">Scholarship History</div>
+
+    <!-- Example of one scholarship entry -->
+    <div class="field-group">
+        <span class="label">Have you ever got Scholarship before?:</span>
+        <span class="value">{{Yes/No}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Scholarship Name:</span>
+        <span class="value">{{scholarshipName1}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Received Year:</span>
+        <span class="value">{{receivedYear1}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Amount (THB):</span>
+        <span class="value">{{amount1}}</span>
+    </div>
+
+    <!-- Repeat this block for additional scholarships -->
+    <div class="field-group">
+        <span class="label">Scholarship Name:</span>
+        <span class="value">{{scholarshipName2}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Received Year:</span>
+        <span class="value">{{receivedYear2}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Amount (THB):</span>
+        <span class="value">{{amount2}}</span>
+    </div>
+
+    <!-- Add more scholarship entries as needed -->
+</div>
+
+<!-- Student Loan Fund Section -->
+<div class="section">
+    <div class="section-title">Student Loan Fund</div>
+
+    <!-- Example of one loan entry -->
+    <div class="field-group">
+        <span class="label">Loan Received From Year:</span>
+        <span class="value">{{loanStartYear1}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">To Year:</span>
+        <span class="value">{{loanEndYear1}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Amount (THB):</span>
+        <span class="value">{{loanAmount1}}</span>
+    </div>
+
+    <!-- Repeat this block for additional loans -->
+    <div class="field-group">
+        <span class="label">Loan Received From Year:</span>
+        <span class="value">{{loanStartYear2}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">To Year:</span>
+        <span class="value">{{loanEndYear2}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Amount (THB):</span>
+        <span class="value">{{loanAmount2}}</span>
+    </div>
+
+    <!-- Add more loan entries as needed -->
+</div>
+
+<!-- Scholarship Spending Plan Section -->
+<div class="section">
+    <div class="section-title">Scholarship Spending Plan</div>
+    <div class="field-group">
+        <span class="label">How would you spend the scholarship if you received one?</span>
+        <p class="value">{{spendingPlan}}</p>
+    </div>
+</div>
+
+<!-- Family Status Section -->
+<div class="section">
+    <div class="section-title">Family Status</div>
+    <div class="field-group">
+        <span class="label">Parents' Marital Status:</span>
+        <span class="value">{{maritalStatus}}</span>
+    </div>
+</div>
+
+<!-- Father's Information Section -->
+<div class="section">
+    <div class="section-title">Father's Information</div>
+    <div class="field-group">
+        <span class="label">Father's Name:</span>
+        <span class="value">{{fatherName}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Age:</span>
+        <span class="value">{{fatherAge}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Occupation:</span>
+        <span class="value">{{fatherOccupation}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Position:</span>
+        <span class="value">{{fatherPosition}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Monthly Income (THB):</span>
+        <span class="value">{{fatherMonthlyIncome}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Yearly Income (THB):</span>
+        <span class="value">{{fatherYearlyIncome}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Land Owned or Rent(Rai):</span>
+        <span class="value">{{fatherLandOwn}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Phone Number:</span>
+        <span class="value">{{fatherPhoneNum}}</span>
+    </div>
+</div>
+
+<!-- Father Address Section -->
+<div class="section">
+    <div class="section-title">Father Address</div>
+    <div class="field-group">
+        <span class="label">City/Town/Village:</span>
+        <span class="value">{{city}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">House Number:</span>
+        <span class="value">{{houseNumber}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Moo:</span>
+        <span class="value">{{moo}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Road:</span>
+        <span class="value">{{road}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Subdistrict:</span>
+        <span class="value">{{subdistrict}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">District:</span>
+        <span class="value">{{district}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Province:</span>
+        <span class="value">{{province}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Postal Code:</span>
+        <span class="value">{{postalCode}}</span>
+    </div>
+</div>
+
+<!-- Father Work Address Section -->
+<div class="section">
+    <div class="section-title">Father Work Address</div>
+    <div class="field-group">
+        <span class="label">City/Town/Village:</span>
+        <span class="value">{{city}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">House Number:</span>
+        <span class="value">{{houseNumber}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Moo:</span>
+        <span class="value">{{moo}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Road:</span>
+        <span class="value">{{road}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Subdistrict:</span>
+        <span class="value">{{subdistrict}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">District:</span>
+        <span class="value">{{district}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Province:</span>
+        <span class="value">{{province}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Postal Code:</span>
+        <span class="value">{{postalCode}}</span>
+    </div>
+</div>
+
+<!-- Mother's Information Section -->
+<div class="section">
+    <div class="section-title">Mother's Information</div>
+    <div class="field-group">
+        <span class="label">Mother's Name:</span>
+        <span class="value">{{motherName}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Age:</span>
+        <span class="value">{{motherAge}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Occupation:</span>
+        <span class="value">{{motherOccupation}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Position:</span>
+        <span class="value">{{motherPosition}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Monthly Income (THB):</span>
+        <span class="value">{{motherMonthlyIncome}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Yearly Income (THB):</span>
+        <span class="value">{{motherYearlyIncome}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Land Owned or Rent(Rai):</span>
+        <span class="value">{{motherLandOwn}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Phone Number:</span>
+        <span class="value">{{motherPhoneNum}}</span>
+    </div>
+</div>
+
+<!-- Mother Address Section -->
+<div class="section">
+    <div class="section-title">Mother Address</div>
+    <div class="field-group">
+        <span class="label">City/Town/Village:</span>
+        <span class="value">{{city}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">House Number:</span>
+        <span class="value">{{houseNumber}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Moo:</span>
+        <span class="value">{{moo}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Road:</span>
+        <span class="value">{{road}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Subdistrict:</span>
+        <span class="value">{{subdistrict}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">District:</span>
+        <span class="value">{{district}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Province:</span>
+        <span class="value">{{province}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Postal Code:</span>
+        <span class="value">{{postalCode}}</span>
+    </div>
+</div>
+
+<!-- Mother Work Address Section -->
+<div class="section">
+    <div class="section-title">Mother Work Address</div>
+    <div class="field-group">
+        <span class="label">City/Town/Village:</span>
+        <span class="value">{{city}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">House Number:</span>
+        <span class="value">{{houseNumber}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Moo:</span>
+        <span class="value">{{moo}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Road:</span>
+        <span class="value">{{road}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Subdistrict:</span>
+        <span class="value">{{subdistrict}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">District:</span>
+        <span class="value">{{district}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Province:</span>
+        <span class="value">{{province}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Postal Code:</span>
+        <span class="value">{{postalCode}}</span>
+    </div>
+</div>
+
+<!-- Guardian's Information Section -->
+<div class="section">
+    <div class="section-title">Guardian's information (in case not father, mother)</div>
+    <div class="field-group">
+        <span class="label">Guardian's Name:</span>
+        <span class="value">{{guardianName}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Relationship to Student:</span>
+        <span class="value">{{guardianRelationship}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Monthly Support (THB):</span>
+        <span class="value">{{guardianSupport}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Occupation:</span>
+        <span class="value">{{guardianOccupation}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Position:</span>
+        <span class="value">{{guardianPosition}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Monthly Income (THB):</span>
+        <span class="value">{{guardianMonthlyIncome}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Yearly Income (THB):</span>
+        <span class="value">{{guardianYearlyIncome}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Land Owned or Rent(Rai):</span>
+        <span class="value">{{guardianLandOwn}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Phone Number:</span>
+        <span class="value">{{guardianPhoneNum}}</span>
+    </div>
+</div>
+
+<!-- Guardian Address Section -->
+<div class="section">
+    <div class="section-title">Guardian Address</div>
+    <div class="field-group">
+        <span class="label">City/Town/Village:</span>
+        <span class="value">{{city}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">House Number:</span>
+        <span class="value">{{houseNumber}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Moo:</span>
+        <span class="value">{{moo}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Road:</span>
+        <span class="value">{{road}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Subdistrict:</span>
+        <span class="value">{{subdistrict}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">District:</span>
+        <span class="value">{{district}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Province:</span>
+        <span class="value">{{province}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Postal Code:</span>
+        <span class="value">{{postalCode}}</span>
+    </div>
+</div>
+
+<!-- Guardian Work Address Section -->
+<div class="section">
+    <div class="section-title">Guardian Work Address</div>
+    <div class="field-group">
+        <span class="label">City/Town/Village:</span>
+        <span class="value">{{city}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">House Number:</span>
+        <span class="value">{{houseNumber}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Moo:</span>
+        <span class="value">{{moo}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Road:</span>
+        <span class="value">{{road}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Subdistrict:</span>
+        <span class="value">{{subdistrict}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">District:</span>
+        <span class="value">{{district}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Province:</span>
+        <span class="value">{{province}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Postal Code:</span>
+        <span class="value">{{postalCode}}</span>
+    </div>
+</div>
+
+<!-- Siblings Information Section -->
+<div class="section">
+    <div class="section-title">Siblings Information</div>
+
+    <!-- Example of one sibling entry -->
+    <div class="field-group">
+        <span class="label">Name:</span>
+        <span class="value">{{siblingName1}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Birth Date:</span>
+        <span class="value">{{siblingBirthDate1}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Age:</span>
+        <span class="value">{{siblingAge1}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Education:</span>
+        <span class="value">{{siblingEducation1}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Occupation:</span>
+        <span class="value">{{siblingOccupation1}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Monthly Income (THB):</span>
+        <span class="value">{{siblingIncome1}}</span>
+    </div>
+
+    <!-- Add more sibling entries as needed -->
+</div>
+
+<!-- Family Financial Information Section -->
+<div class="section">
+    <div class="section-title">Family Financial Information</div>
+    <div class="field-group">
+        <span class="label">Total Family Income (THB):</span>
+        <span class="value">{{totalFamilyIncome}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Total Family Expenses (THB):</span>
+        <span class="value">{{totalFamilyExpenses}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Total Monthly Debt Payment (THB):</span>
+        <span class="value">{{monthlyDebtPayment}}</span>
+    </div>
+</div>
+
+<!-- Scholarship Essay Section -->
+<div class="section">
+    <div class="section-title">Scholarship Essay</div>
+    <div class="field-group">
+        <span class="label">Reason to Apply:</span>
+        <p class="value">{{scholarshipEssay}}</p>
+    </div>
+</div>
+
+<!-- Photos of Applicant's House Section -->
+<div class="section">
+    <div class="section-title">Photos of Applicant's House</div>
+
+    <!-- Inside House Photos -->
+    <div class="field-group">
+        <span class="label">Inside House Photo 1:</span>
+        <img src="{{insideHousePhoto1Url}}" alt="Inside House Photo 1" style="max-width: 100%; height: auto;">
+    </div>
+    <div class="field-group">
+        <span class="label">Inside House Photo 2:</span>
+        <img src="{{insideHousePhoto2Url}}" alt="Inside House Photo 2" style="max-width: 100%; height: auto;">
+    </div>
+
+    <!-- Outside House Photos -->
+    <div class="field-group">
+        <span class="label">Outside House Photo 1:</span>
+        <img src="{{outsideHousePhoto1Url}}" alt="Outside House Photo 1" style="max-width: 100%; height: auto;">
+    </div>
+    <div class="field-group">
+        <span class="label">Outside House Photo 2:</span>
+        <img src="{{outsideHousePhoto2Url}}" alt="Outside House Photo 2" style="max-width: 100%; height: auto;">
+    </div>
+</div>
+
+<!-- Family Income Certification Photo -->
+<div class="section">
+    <div class="section-title">Family Income Certification</div>
+    <div class="field-group">
+        <span class="label">Uploaded Certification:</span>
+        <img src="{{incomeCertificationPhotoUrl}}" alt="Income Certification" style="max-width: 100%; height: auto;">
+    </div>
+</div>
+
+<!-- Advisor Recommendation Letter Photo -->
+<div class="section">
+    <div class="section-title">Advisor Recommendation Letter</div>
+    <div class="field-group">
+        <span class="label">Uploaded Letter:</span>
+        <img src="{{advisorRecommendationPhotoUrl}}" alt="Advisor Recommendation" style="max-width: 100%; height: auto;">
+    </div>
+</div>
+
+<!-- Family Status Certification Photo -->
+<div class="section">
+    <div class="section-title">Family Status Certification</div>
+    <div class="field-group">
+        <span class="label">Uploaded Certification:</span>
+        <img src="{{familyStatusCertificationPhotoUrl}}" alt="Family Status Certification" style="max-width: 100%; height: auto;">
+    </div>
+</div>
+
+<!-- Non-Parental Guardianship Certification Photo -->
+<div class="section">
+    <div class="section-title">Non-Parental Guardianship Certification</div>
+    <div class="field-group">
+        <span class="label">Uploaded Certification:</span>
+        <img src="{{guardianshipCertificationPhotoUrl}}" alt="Non-Parental Guardianship Certification" style="max-width: 100%; height: auto;">
+    </div>
+</div>
+
+<!-- Signature and Date Section -->
+<div class="section">
+    <div class="section-title">Certification</div>
+    <div class="field-group">
+        <span class="label">Signature:</span>
+        <span class="value">{{signature}}</span>
+    </div>
+    <div class="field-group">
+        <span class="label">Date:</span>
+        <span class="value">{{date}}</span>
+    </div>
+</div>
+</body>
+</html>
